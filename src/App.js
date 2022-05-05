@@ -9,6 +9,7 @@ import {Container} from "reactstrap";
 import App1 from "./App1";
 import NotFoundPage from "./components/NotFoundPage";
 import './css/main.css'
+import ServicePage from "./components/ServicePage";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/services" component={ServiceList} />
+            <Route path="/service/:id" component={ServicePage} />
           <Route path="/about" component={App1} />
           <Redirect from="/about-page" to="about" />
           <Route component={NotFoundPage} />

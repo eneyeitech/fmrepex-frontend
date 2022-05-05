@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {CardGroup, Container} from "reactstrap";
+import {Container} from "reactstrap";
 import ServiceCard from "./ServiceCard";
 
 import {services} from "../api/services";
