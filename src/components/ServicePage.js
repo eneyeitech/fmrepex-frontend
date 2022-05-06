@@ -16,8 +16,10 @@ const ServicePage = props => {
 
     useEffect(() => {
         const id = props.match.params.id; // from the path `/courses/:slug`
+
         if (id) {
-            let _service = services.find(s=>s.id===id);
+            let idToCheck = parseInt(id, 10);
+            let _service = services.find(s=>s.id===idToCheck);
             setService(_service);
         }
     }, [props.match.params.id, services]);

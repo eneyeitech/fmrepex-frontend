@@ -19,7 +19,7 @@ function Header(props) {
                   <NavLink activeStyle={activeStyle} exact to="/" className="py-2 d-none d-md-inline-block" >Home</NavLink>
                   <NavLink activeStyle={activeStyle} exact to="/services" className="py-2 d-none d-md-inline-block">Services</NavLink>
                   <NavLink activeStyle={activeStyle} exact to="/about" className="py-2 d-none d-md-inline-block">About</NavLink>
-
+                  <NavLink activeStyle={activeStyle} exact to="/signup" className="py-2 d-none d-md-inline-block">Sign Up</NavLink>
                   <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink>
               </nav>
           </header>
