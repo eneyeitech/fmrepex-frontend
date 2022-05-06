@@ -3,14 +3,13 @@ import * as userApi from "../api/userApi";
 import SignUpForm from "./SignUpForm";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
+import LoginForm from "./LoginForm";
 
 
-const ManageSignUp = props => {
+const ManageLogin= props => {
     const [errors, setErrors] = useState({});
     const [user, setUser] = useState({
         id: null,
-        name: "",
-        lastname: "",
         email: "",
         password: ""
     });
@@ -26,8 +25,6 @@ const ManageSignUp = props => {
     function formIsValid() {
         const _errors = {};
 
-        if (!user.name) _errors.name = "Name is required";
-        if (!user.lastname) _errors.lastname = "Lastname is required";
         if (!user.email) _errors.email = "Email is required";
         if (!user.password) _errors.password = "Password is required";
 
@@ -39,25 +36,35 @@ const ManageSignUp = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        userApi.saveUser(user).then(() => {
-            props.history.push("/login");
-            toast.success("Signup successful.");
+        userApi.loginUser(user).then(response => {
+            const user = response.user;
+            console.log(response);
+            /**props.history.push({
+                pathname: '/services',
+                state: user
+            });*/
+            props.history.push({
+                pathname: '/dashboard',
+                state: user
+            });
+            toast.success("Login successful.");
+
         });
     }
 
     return (
         <>
             <Container>
-            <h2 className="pt-md-5">User Signup</h2>
-            <SignUpForm
-                errors={errors}
-                user={user}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-            />
+                <h2 className="pt-md-5">User Login</h2>
+                <LoginForm
+                    errors={errors}
+                    user={user}
+                    onChange={handleChange}
+                    onSubmit={handleSubmit}
+                />
             </Container>
         </>
     );
 };
 
-export default ManageSignUp;
+export default ManageLogin;

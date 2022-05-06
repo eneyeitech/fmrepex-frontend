@@ -3,11 +3,12 @@ import { NavLink } from "react-router-dom";
 
 function Header(props) {
     const activeStyle = {color:"orange"};
+    const {isLoggedIn} = props;
     return (
       <>
           <header className="site-header sticky-top py-1">
               <nav className="container d-flex flex-column flex-md-row justify-content-between">
-                  <a className="py-2" href="#" aria-label="Product">
+                  <a className="py-2" href="src/components/common/Header#" aria-label="Product">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="d-block mx-auto"
                            role="img" viewBox="0 0 24 24"><title>Product</title>
@@ -19,8 +20,11 @@ function Header(props) {
                   <NavLink activeStyle={activeStyle} exact to="/" className="py-2 d-none d-md-inline-block" >Home</NavLink>
                   <NavLink activeStyle={activeStyle} exact to="/services" className="py-2 d-none d-md-inline-block">Services</NavLink>
                   <NavLink activeStyle={activeStyle} exact to="/about" className="py-2 d-none d-md-inline-block">About</NavLink>
-                  <NavLink activeStyle={activeStyle} exact to="/signup" className="py-2 d-none d-md-inline-block">Sign Up</NavLink>
-                  <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink>
+                  {!isLoggedIn &&
+                      (<><NavLink activeStyle={activeStyle} exact to="/signup" className="py-2 d-none d-md-inline-block">Sign
+                          Up</NavLink>
+                      <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink></>)
+                  }
               </nav>
           </header>
       </>

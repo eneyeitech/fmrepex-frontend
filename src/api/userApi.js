@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
 //const baseUrl = process.env.REACT_APP_API_URL + "/courses/";
-const baseUrl = "http://localhost:8080" + "/api/auth/signup";
+const baseUrl = "http://localhost:8080";
 const url = new URL('http://localhost:8080/api/auth/signup');
 
 export function getCourses() {
@@ -26,9 +26,26 @@ export function saveUser(user) {
     url.search = new URLSearchParams(params).toString();
     //console.log(delete user.id);
     //console.log(user);
-    return fetch(url + (user.id || ""), {
+    return fetch(baseUrl + (user.id || "/api/auth/signup?type="), {
         method: user.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },
+        body: JSON.stringify(user)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
+
+export function loginUser(user) {
+    let params = {};
+    url.search = new URLSearchParams(params).toString();
+    //console.log(delete user.id);
+    //console.log(user);
+    return fetch(baseUrl + (user.id || "/api/auth/login"), {
+        method: user.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${user.email}:${user.password}`)
+        },
         body: JSON.stringify(user)
     })
         .then(handleResponse)

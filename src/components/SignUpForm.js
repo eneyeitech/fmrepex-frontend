@@ -42,7 +42,7 @@ function SignUpForm(props) {
                 error={props.errors.password}
             />
 
-            <input type="submit" value="Save" className="btn btn-primary" />
+            <input type="submit" value="Save" className="btn btn-primary mt-2" />
         </form>
     );
 }
