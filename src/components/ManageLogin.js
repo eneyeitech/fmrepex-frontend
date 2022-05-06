@@ -37,15 +37,16 @@ const ManageLogin= props => {
         event.preventDefault();
         if (!formIsValid()) return;
         userApi.loginUser(user).then(response => {
-            const user = response.user;
-            console.log(response);
+            const loggedInUser = response.user;
+            localStorage.setItem('USROBJ', JSON.stringify(loggedInUser));
+            localStorage.setItem('PSSWD', user.password);
             /**props.history.push({
                 pathname: '/services',
                 state: user
             });*/
             props.history.push({
                 pathname: '/dashboard',
-                state: user
+                state: loggedInUser
             });
             toast.success("Login successful.");
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
 import Home from "./components/Home";
 import ServiceList from "./components/ServiceList";
 import Header from "./components/common/Header";
@@ -25,12 +25,29 @@ function App() {
         setLoggedIn(value);
     }
 
+    function handleSignOut(value){
+        setLoggedIn(value);
+        localStorage.removeItem('USROBJ');
+        localStorage.removeItem('PSSWD');
+    }
+
+    useEffect(()=>{
+        const user = JSON.parse(localStorage.getItem('USROBJ'));
+        console.log(user);
+        console.log(localStorage.getItem('PSSWD'));
+        if(user){
+            setLoggedIn(true);
+        }
+    }, loggedIn)
+
+
+
 
   return (
           <body data-new-gr-c-s-check-loaded="14.1058.0" data-gr-ext-installed="">
           <ToastContainer autoClose={3000} hideProgressBar />
 
-          <Header isLoggedIn={loggedIn}/>
+          <Header isLoggedIn={loggedIn} signOut={handleSignOut}/>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/services" component={ServiceList} />

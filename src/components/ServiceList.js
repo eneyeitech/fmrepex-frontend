@@ -10,7 +10,7 @@ function ServiceList(props){
 
     const [services, setServices] = useState(_services);
 
-    const serviceList = services.map(service => <ServiceCard service={service}/>);
+    const serviceList = services.map(service => <ServiceCard service={service} key={service.id}/>);
 
 
     return (

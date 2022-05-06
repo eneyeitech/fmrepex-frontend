@@ -1,9 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
 function Header(props) {
     const activeStyle = {color:"orange"};
-    const {isLoggedIn} = props;
+    const {isLoggedIn, signOut} = props;
+    const history = useHistory();
+
+    function handleSignOut(){
+        history.push('/');
+        signOut();
+    }
+
     return (
       <>
           <header className="site-header sticky-top py-1">
@@ -25,6 +32,8 @@ function Header(props) {
                           Up</NavLink>
                       <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink></>)
                   }
+                  {isLoggedIn &&
+                      <NavLink exact to="#" onClick={handleSignOut} className="py-2 d-none d-md-inline-block btn btn-danger">Sign out</NavLink>}
               </nav>
           </header>
       </>

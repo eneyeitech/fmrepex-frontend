@@ -9,11 +9,16 @@ function Dashboard(props){
     const [user, setUser] = useState(); // it is equal to yourData
 
     useEffect(()=>{
+        //const user = JSON.parse(localStorage.getItem('USROBJ'));
+
         setUser(location.state);
         onLogin(true);
     }, [location.state])
 
-    const welcome = user ? "Welcome "+user.name + "," : "";
+    const loggedInUser = user ? user : JSON.parse(localStorage.getItem('USROBJ'));
+
+    const welcome = loggedInUser ? "Welcome "+loggedInUser.name + "," : "";
+
 
     return (
         <>
