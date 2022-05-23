@@ -15,11 +15,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManageLogin from "./components/ManageLogin";
 import Dashboard from "./components/Dashboard";
+import ManageCompany from "./components/ManageCompany";
 
 
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const history = useHistory();
 
     function handleLogin(value){
         setLoggedIn(value);
@@ -29,6 +31,7 @@ function App() {
         setLoggedIn(value);
         localStorage.removeItem('USROBJ');
         localStorage.removeItem('PSSWD');
+        history.push('/');
     }
 
     useEffect(()=>{
@@ -38,9 +41,7 @@ function App() {
         if(user){
             setLoggedIn(true);
         }
-    }, loggedIn)
-
-
+    }, [loggedIn])
 
 
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="/about" component={App1} />
             <Route path="/signup" component={ManageSignUp} />
             <Route path="/login" component={ManageLogin} />
+            <Route path="/company" component={ManageCompany} />
             <Route path="/dashboard"><Dashboard onLogin={handleLogin}/></Route>
           <Redirect from="/about-page" to="about" />
           <Route component={NotFoundPage} />

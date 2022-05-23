@@ -1,15 +1,9 @@
 import React from "react";
-import {NavLink, useHistory} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Header(props) {
     const activeStyle = {color:"orange"};
     const {isLoggedIn, signOut} = props;
-    const history = useHistory();
-
-    function handleSignOut(){
-        history.push('/');
-        signOut();
-    }
 
     return (
       <>
@@ -24,16 +18,24 @@ function Header(props) {
                               d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path>
                       </svg>
                   </a>
-                  <NavLink activeStyle={activeStyle} exact to="/" className="py-2 d-none d-md-inline-block" >Home</NavLink>
-                  <NavLink activeStyle={activeStyle} exact to="/services" className="py-2 d-none d-md-inline-block">Services</NavLink>
-                  <NavLink activeStyle={activeStyle} exact to="/about" className="py-2 d-none d-md-inline-block">About</NavLink>
+
+
                   {!isLoggedIn &&
-                      (<><NavLink activeStyle={activeStyle} exact to="/signup" className="py-2 d-none d-md-inline-block">Sign
+                      (<>
+                          <NavLink activeStyle={activeStyle} exact to="/" className="py-2 d-none d-md-inline-block" >Home</NavLink>
+                          <NavLink activeStyle={activeStyle} exact to="/services" className="py-2 d-none d-md-inline-block">Services</NavLink>
+                          <NavLink activeStyle={activeStyle} exact to="/about" className="py-2 d-none d-md-inline-block">About</NavLink>
+                          <NavLink activeStyle={activeStyle} exact to="/signup" className="py-2 d-none d-md-inline-block">Sign
                           Up</NavLink>
-                      <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink></>)
+                          <NavLink activeStyle={activeStyle} exact to="/login" className="py-2 d-none d-md-inline-block">Login</NavLink>
+                      </>)
                   }
                   {isLoggedIn &&
-                      <NavLink exact to="#" onClick={handleSignOut} className="py-2 d-none d-md-inline-block btn btn-danger">Sign out</NavLink>}
+                      <>
+                          <NavLink activeStyle={activeStyle} exact to="/dashboard" className="py-2 d-none d-md-inline-block">Dashboard</NavLink>
+                      <NavLink exact to="#" onClick={()=>signOut(false)} className="py-2 d-none d-md-inline-block btn btn-danger">Sign out</NavLink>
+                      </>
+                      }
               </nav>
           </header>
       </>

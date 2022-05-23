@@ -1,6 +1,8 @@
 import {Container} from "reactstrap";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {isManager, isTenant} from "../business/userGroupService";
+import ManageCompany from "./ManageCompany";
 
 function Dashboard(props){
 
@@ -19,13 +21,24 @@ function Dashboard(props){
 
     const welcome = loggedInUser ? "Welcome "+loggedInUser.name + "," : "";
 
+    const aTenant = isTenant(loggedInUser);
+    const aManager = isManager(loggedInUser);
+
+    const msg = aManager ? "Property Manager":"Tenant";
+
+
 
     return (
         <>
             <Container>
                 <div className="p-md-5">
-                    <h2 className="mb-md-2">Dashboard</h2>
+                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> ({msg})</span></h2>
                     {welcome}
+                    <br/>
+                    <Link to="/company">Manage Company</Link>
+                    <br/>
+                    <Link to="/maintenance">View Maintenance Request</Link>
+
                 </div>
             </Container>
         </>

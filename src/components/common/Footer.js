@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 function Footer(props) {
     return (
       <>
@@ -11,44 +13,33 @@ function Footer(props) {
                           <path
                               d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path>
                       </svg>
-                      <small className="d-block mb-3 text-muted">© 2017–2021</small>
+                      <small className="d-block mb-3 text-muted">© 2016–2022</small>
                   </div>
                   <div className="col-6 col-md">
-                      <h5>Features</h5>
+                      <h5></h5>
                       <ul className="list-unstyled text-small">
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Cool stuff</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Random feature</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Team feature</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Stuff for developers</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Another one</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Last time</a></li>
+                          <li><Link className="link-secondary" to="/">Home</Link></li>
+
                       </ul>
                   </div>
                   <div className="col-6 col-md">
-                      <h5>Resources</h5>
+                      <h5></h5>
                       <ul className="list-unstyled text-small">
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Resource name</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Resource</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Another resource</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Final resource</a></li>
+                          <li><Link className="link-secondary" to="/services">Services</Link></li>
                       </ul>
                   </div>
                   <div className="col-6 col-md">
-                      <h5>Resources</h5>
+                      <h5></h5>
                       <ul className="list-unstyled text-small">
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Business</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Education</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Government</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Gaming</a></li>
+                          <li><Link className="link-secondary" to="/about">About</Link></li>
+
                       </ul>
                   </div>
                   <div className="col-6 col-md">
-                      <h5>About</h5>
+                      <h5></h5>
                       <ul className="list-unstyled text-small">
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Team</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Locations</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Privacy</a></li>
-                          <li><a className="link-secondary" href="src/components/common/Footer#">Terms</a></li>
+                          <li><Link className="link-secondary" to="/contact">Contact</Link></li>
+
                       </ul>
                   </div>
               </div>

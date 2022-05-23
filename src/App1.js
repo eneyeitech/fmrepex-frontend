@@ -33,7 +33,7 @@ class App1 extends Component {
     render() {
         const {clients} = this.state;
         return (
-            <body data-new-gr-c-s-check-loaded="14.1058.0" data-gr-ext-installed="">
+
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
@@ -46,9 +46,8 @@ class App1 extends Component {
                         )}
                     </div>
                 </header>
-                <Footer/>
             </div>
-            </body>
+
         );
     }
 }
