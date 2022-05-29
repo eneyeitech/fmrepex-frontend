@@ -24,7 +24,7 @@ function BuildingsPage() {
     return (
         <>
             <Container>
-                <h2>Buildings</h2>
+                <h2 className="pt-md-5">Buildings</h2>
                 <Link className="btn btn-primary" to="/building">
                     Add Building
                 </Link>

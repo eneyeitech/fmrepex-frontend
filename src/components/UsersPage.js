@@ -22,7 +22,7 @@ function UsersPage() {
     return (
         <>
             <Container>
-            <h2>Users</h2>
+            <h2 className="pt-md-5">Users</h2>
             <Link className="btn btn-primary" to="/user">
                 Add User
             </Link>

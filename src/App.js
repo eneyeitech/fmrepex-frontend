@@ -20,6 +20,8 @@ import UsersPage from "./components/UsersPage";
 import ManageUserPage from "./components/ManageUserPage";
 import BuildingsPage from "./components/BuildingsPage";
 import ManageBuilding from "./components/ManageBuilding";
+import TenantAssignment from "./components/TenantAssignment";
+import TenantUnAssignment from "./components/TenantUnAssignment";
 
 
 
@@ -64,7 +66,8 @@ function App() {
             <Route path="/building/:slug" component={ManageBuilding} />
             <Route path="/building" component={ManageBuilding} />
             <Route path="/users" component={UsersPage} />
-
+            <Route path="/assign" component={TenantAssignment} />
+            <Route path="/unassign" component={TenantUnAssignment} />
             <Route path="/user" component={ManageUserPage} />
             <Route path="/company" component={ManageCompany} />
             <Route path="/dashboard"><Dashboard onLogin={handleLogin}/></Route>

@@ -6,6 +6,7 @@ import CompanyForm from "./CompanyForm";
 import {useLocation} from "react-router-dom";
 import BuildingForm from "./BuildingForm";
 import {getBuildingBySlug, saveBuilding} from "../api/buildingApi";
+import TenantInformation from "./TenantInformation";
 
 
 const ManageBuilding = props => {
@@ -74,6 +75,7 @@ const ManageBuilding = props => {
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                 />
+                <TenantInformation building={building}/>
             </Container>
         </>
     );

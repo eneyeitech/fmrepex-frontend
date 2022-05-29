@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getCompanyId, isManager, isTenant} from "../business/userGroupService";
 import ManageCompany from "./ManageCompany";
+import BuildingInformation from "./BuildingInformation";
 
 function Dashboard(props){
 
@@ -60,6 +61,8 @@ function Dashboard(props){
 
                     <br/>
                     <Link to="/maintenance">View Maintenance Request</Link>
+
+                    {aTenant && <BuildingInformation uid={loggedInUser.id}/>}
 
                 </div>
             </Container>
