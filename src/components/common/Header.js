@@ -33,7 +33,7 @@ function Header(props) {
                   {isLoggedIn &&
                       <>
                           <NavLink activeStyle={activeStyle} exact to="/dashboard" className="py-2 d-none d-md-inline-block">Dashboard</NavLink>
-                      <NavLink exact to="#" onClick={()=>signOut(false)} className="py-2 d-none d-md-inline-block btn btn-danger">Sign out</NavLink>
+                      <NavLink exact to="/" onClick={()=>signOut(false)} className="py-2 d-none d-md-inline-block btn btn-danger">Sign out</NavLink>
                       </>
                       }
               </nav>

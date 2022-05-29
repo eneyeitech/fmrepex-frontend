@@ -3,6 +3,7 @@ import * as companyApi from "../api/companyApi";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import CompanyForm from "./CompanyForm";
+import {useLocation} from "react-router-dom";
 
 
 const ManageCompany = props => {
@@ -18,10 +19,21 @@ const ManageCompany = props => {
         officePhoneNumber:""
     });
 
+    const location = useLocation();
+    const { companyId } = location.state;
+    console.log(companyId);
+
     useEffect(() => {
         const _company = props.company;
+        const slug = companyId ? companyId: null;//"17991faf-f2e0-4fa8-90a6-d7094566e3d0";
+        console.log("SLUG", slug);
         if (_company) {
             setCompany(_company);
+        } else if(slug) {
+            companyApi.getCompanyBySlug(slug).then(response=>{
+                console.log(response);
+                setCompany(response);
+            })
         }
     }, [props.company]);
 
@@ -51,8 +63,14 @@ const ManageCompany = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        companyApi.saveCompany(company).then(() => {
-            props.history.push("/login");
+        companyApi.saveCompany(company).then(response => {
+            console.log(response);
+
+            //props.history.push("/company");
+            props.history.push({
+                pathname: '/company',
+                state: {companyId:companyId}
+            });
             toast.success("Company saved.");
         });
     }
@@ -60,7 +78,7 @@ const ManageCompany = props => {
     return (
         <>
             <Container>
-                <h2 className="pt-md-5">User Signup</h2>
+                <h2 className="pt-md-5">Manage Company</h2>
                 <CompanyForm
                     errors={errors}
                     company={company}

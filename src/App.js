@@ -16,6 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 import ManageLogin from "./components/ManageLogin";
 import Dashboard from "./components/Dashboard";
 import ManageCompany from "./components/ManageCompany";
+import UsersPage from "./components/UsersPage";
+import ManageUserPage from "./components/ManageUserPage";
+import BuildingsPage from "./components/BuildingsPage";
+import ManageBuilding from "./components/ManageBuilding";
 
 
 
@@ -56,6 +60,12 @@ function App() {
           <Route path="/about" component={App1} />
             <Route path="/signup" component={ManageSignUp} />
             <Route path="/login" component={ManageLogin} />
+            <Route path="/buildings" component={BuildingsPage} />
+            <Route path="/building/:slug" component={ManageBuilding} />
+            <Route path="/building" component={ManageBuilding} />
+            <Route path="/users" component={UsersPage} />
+
+            <Route path="/user" component={ManageUserPage} />
             <Route path="/company" component={ManageCompany} />
             <Route path="/dashboard"><Dashboard onLogin={handleLogin}/></Route>
           <Redirect from="/about-page" to="about" />

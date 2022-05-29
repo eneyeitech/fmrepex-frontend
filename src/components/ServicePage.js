@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {services} from "../api/services";
+import {Card, CardBody, CardImg, CardTitle, Container} from "reactstrap";
+import {Link} from "react-router-dom";
 const _services = services;
 
 
@@ -26,10 +28,25 @@ const ServicePage = props => {
 
     return (
         <>
-            <div>
-            <h2>Service Request</h2>
-            {service.name}
-            </div>
+            <Container>
+            <h2 className="pt-md-5">Service Request</h2>
+
+                <Card className="col-3 pt-md-5 text-center ">
+                    <Link to={"/service/" + service.id}>
+                        <CardImg
+                            alt="Card image cap"
+                            src={`${process.env.PUBLIC_URL}/assets/images/services/${service.img_url}`}
+                            top
+                            width="100%"
+                        />
+                        <CardBody>
+                            <CardTitle tag="h5">
+                                {service.name}
+                            </CardTitle>
+                        </CardBody>
+                    </Link>
+                </Card>
+            </Container>
         </>
     );
 };

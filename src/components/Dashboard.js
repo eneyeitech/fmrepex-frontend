@@ -1,7 +1,7 @@
 import {Container} from "reactstrap";
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {isManager, isTenant} from "../business/userGroupService";
+import {getCompanyId, isManager, isTenant} from "../business/userGroupService";
 import ManageCompany from "./ManageCompany";
 
 function Dashboard(props){
@@ -23,6 +23,8 @@ function Dashboard(props){
 
     const aTenant = isTenant(loggedInUser);
     const aManager = isManager(loggedInUser);
+    const companyId = getCompanyId(loggedInUser);
+    console.log("CID", companyId);
 
     const msg = aManager ? "Property Manager":"Tenant";
 
@@ -35,7 +37,27 @@ function Dashboard(props){
                     <h2 className="mb-md-2">Dashboard <span className="text-muted"> ({msg})</span></h2>
                     {welcome}
                     <br/>
-                    <Link to="/company">Manage Company</Link>
+                    {
+                        aManager && <>
+                            <Link to={{
+                        pathname: "/company",
+                        state: {
+                            companyId: companyId,
+                        },
+                        }}
+                        >Manage Company</Link>
+                            <br/>
+                            <Link to={{
+                                pathname: "/buildings",
+                            }}
+                            >Manage Building</Link>
+                        <br/>
+                        <Link to="/users">Manage Users</Link>
+                        </>
+
+                    }
+
+
                     <br/>
                     <Link to="/maintenance">View Maintenance Request</Link>
 
