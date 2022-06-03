@@ -54,13 +54,14 @@ function Dashboard(props){
                             >Manage Building</Link>
                         <br/>
                         <Link to="/users">Manage Users</Link>
+                            <br/>
+                            <Link to="/maintenance">View Maintenance Request</Link>
                         </>
 
                     }
 
 
-                    <br/>
-                    <Link to="/maintenance">View Maintenance Request</Link>
+
 
                     {aTenant && <BuildingInformation uid={loggedInUser.id}/>}
 

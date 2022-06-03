@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {services} from "../api/services";
 import {Card, CardBody, CardImg, CardTitle, Container} from "reactstrap";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import ManageServiceRequest from "./ManageServiceRequest";
 const _services = services;
 
 
@@ -13,8 +14,10 @@ const ServicePage = props => {
         id: null,
         name: "",
         img_url: "",
-
     });
+
+    const location = useLocation();
+    const { buildingId } = location.state;
 
     useEffect(() => {
         const id = props.match.params.id; // from the path `/courses/:slug`
@@ -29,10 +32,10 @@ const ServicePage = props => {
     return (
         <>
             <Container>
-            <h2 className="pt-md-5">Service Request</h2>
-
+            <h2 className="pt-md-5">Make Service Request</h2>
+                <div className="row">
                 <Card className="col-3 pt-md-5 text-center ">
-                    <Link to={"/service/" + service.id}>
+
                         <CardImg
                             alt="Card image cap"
                             src={`${process.env.PUBLIC_URL}/assets/images/services/${service.img_url}`}
@@ -44,8 +47,12 @@ const ServicePage = props => {
                                 {service.name}
                             </CardTitle>
                         </CardBody>
-                    </Link>
+
                 </Card>
+                <div className="col-9 text-center" >
+                    <ManageServiceRequest buildingId={buildingId} service={service.name}/>
+                </div>
+                </div>
             </Container>
         </>
     );

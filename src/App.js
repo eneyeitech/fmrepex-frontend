@@ -22,6 +22,12 @@ import BuildingsPage from "./components/BuildingsPage";
 import ManageBuilding from "./components/ManageBuilding";
 import TenantAssignment from "./components/TenantAssignment";
 import TenantUnAssignment from "./components/TenantUnAssignment";
+import MaintenanceRequestsPage from "./components/MaintenanceRequestsPage";
+import ManageMaintenanceRequest from "./components/ManageMaintenanceRequest";
+import ManagersMaintenancePage from "./components/ManagersMaintenancePage";
+import MaintenanceRequestDetail from "./components/MaintenanceRequestDetail";
+import AboutServiceList from "./components/AboutServiceList";
+import AboutServicePage from "./components/AboutServicePage";
 
 
 
@@ -57,14 +63,21 @@ function App() {
           <Header isLoggedIn={loggedIn} signOut={handleSignOut}/>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/services" component={ServiceList} />
-          <Route path="/service/:id" component={ServicePage} />
+            <Route path="/services/request" component={ServiceList} />
+          <Route path="/services" component={AboutServiceList} />
+            <Route path="/service/request/:id" component={ServicePage} />
+          <Route path="/service/:id" component={AboutServicePage} />
           <Route path="/about" component={App1} />
             <Route path="/signup" component={ManageSignUp} />
             <Route path="/login" component={ManageLogin} />
             <Route path="/buildings" component={BuildingsPage} />
             <Route path="/building/:slug" component={ManageBuilding} />
             <Route path="/building" component={ManageBuilding} />
+            <Route path="/maintenance" component={ManagersMaintenancePage} />
+            <Route path="/requests" component={MaintenanceRequestsPage} />
+            <Route path="/request/detail/:slug" component={MaintenanceRequestDetail} />
+            <Route path="/request/:slug" component={ManageMaintenanceRequest} />
+            <Route path="/request" component={ManageMaintenanceRequest} />
             <Route path="/users" component={UsersPage} />
             <Route path="/assign" component={TenantAssignment} />
             <Route path="/unassign" component={TenantUnAssignment} />

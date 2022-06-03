@@ -6,7 +6,7 @@ function TenantInformation(props) {
     const [tenant, setTenant] = useState({
         name: "",
         email: "",
-        phoneNumber: "",
+        phonenumber: "",
     });
 
     const {building} = props;
@@ -25,7 +25,7 @@ function TenantInformation(props) {
                 <h3 className="pt-md-2">Tenant Detail</h3>
                 <p>Name: {tenant.name}</p>
                 <p>Email: {tenant.email}</p>
-                <p>Phone Number: {tenant.phoneNumber}</p>
+                <p>Phone Number: {tenant.phonenumber}</p>
                 <Link to={{
                     pathname: "/unassign",
                     state: {

@@ -11,7 +11,7 @@ import MaintenanceForm from "./MaintenanceForm";
 import {getMaintenanceBySlug, saveMaintenance} from "../api/maintenanceApi";
 
 
-const ManageMaintenanceRequest = props => {
+const ManageServiceRequest = props => {
     const [errors, setErrors] = useState({});
     const [maintenance, setMaintenance] = useState({
         id: null,
@@ -19,23 +19,18 @@ const ManageMaintenanceRequest = props => {
         description: "",
     });
 
-    const location = useLocation();
-    const { buildingId } = location.state;
+    const { buildingId } = props;
     console.log(buildingId);
 
     useEffect(() => {
         const _maintenance = props.maintenance;
-        const slug = props.match.params.slug // from the path `/building/:slug
-        console.log("SLUG", slug);
+        const {service} = props;
         if (_maintenance) {
             setMaintenance(_maintenance);
-        } else if(slug) {
-            getMaintenanceBySlug(slug).then(response=>{
-                console.log(response);
-                setMaintenance(response);
-            })
+        }  else if(service) {
+            setMaintenance({...maintenance, name:service});
         }
-    }, [props.maintenance, props.match.params.slug]);
+    }, [props.maintenance, props.service]);
 
     function handleChange({ target }) {
         setMaintenance({
@@ -60,8 +55,7 @@ const ManageMaintenanceRequest = props => {
         if (!formIsValid()) return;
         saveMaintenance(maintenance, buildingId).then(response => {
             console.log(response);
-
-            props.history.push("/dashboard");
+            //props.history.push("/dashboard");
             toast.success("Maintenance Request sent.");
         });
     }
@@ -69,7 +63,7 @@ const ManageMaintenanceRequest = props => {
     return (
         <>
             <Container>
-                <h2 className="pt-md-5">Make Request</h2>
+                <h2 className="pt-md-5"></h2>
                 <MaintenanceForm
                     errors={errors}
                     maintenance={maintenance}
@@ -81,4 +75,4 @@ const ManageMaintenanceRequest = props => {
     );
 };
 
-export default ManageMaintenanceRequest;
+export default ManageServiceRequest;

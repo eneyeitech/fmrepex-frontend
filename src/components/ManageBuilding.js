@@ -75,7 +75,7 @@ const ManageBuilding = props => {
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                 />
-                <TenantInformation building={building}/>
+                {(building.id) && <TenantInformation building={building}/>}
             </Container>
         </>
     );

@@ -34,6 +34,15 @@ function SignUpForm(props) {
             />
 
             <TextInput
+                id="phonenumber"
+                label="Phone number"
+                onChange={props.onChange}
+                name="phonenumber"
+                value={props.user.phonenumber}
+                error={props.errors.phonenumber}
+            />
+
+            <TextInput
                 id="password"
                 label="Password"
                 onChange={props.onChange}

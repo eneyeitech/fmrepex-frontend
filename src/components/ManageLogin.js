@@ -55,7 +55,7 @@ const ManageLogin= props => {
 
     return (
         <>
-            <Container>
+            <Container className="col-md-6 offset-md-3">
                 <h2 className="pt-md-5">User Login</h2>
                 <LoginForm
                     errors={errors}

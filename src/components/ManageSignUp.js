@@ -12,6 +12,7 @@ const ManageSignUp = props => {
         name: "",
         lastname: "",
         email: "",
+        phonenumber:"",
         password: ""
     });
 
@@ -29,6 +30,7 @@ const ManageSignUp = props => {
         if (!user.name) _errors.name = "Name is required";
         if (!user.lastname) _errors.lastname = "Lastname is required";
         if (!user.email) _errors.email = "Email is required";
+        if (!user.phonenumber) _errors.phonenumber = "Phone number is required";
         if (!user.password) _errors.password = "Password is required";
 
         setErrors(_errors);
@@ -47,7 +49,7 @@ const ManageSignUp = props => {
 
     return (
         <>
-            <Container>
+            <Container className="col-md-6 offset-md-3">
             <h2 className="pt-md-5">User Signup</h2>
             <SignUpForm
                 errors={errors}

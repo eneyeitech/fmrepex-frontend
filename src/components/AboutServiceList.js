@@ -4,17 +4,15 @@ import ServiceCard from "./ServiceCard";
 
 import {services} from "../api/services";
 import {useLocation} from "react-router-dom";
+import AboutServiceCard from "./AboutServiceCard";
 
 const _services = services;
 
-function ServiceList(props){
+function AboutServiceList(props){
 
     const [services, setServices] = useState(_services);
 
-    const location = useLocation();
-    const { buildingId } = location.state;
-
-    const serviceList = services.map(service => <ServiceCard service={service} key={service.id} bid={buildingId}/>);
+    const serviceList = services.map(service => <AboutServiceCard service={service} key={service.id}/>);
 
 
     return (
@@ -30,4 +28,4 @@ function ServiceList(props){
 
 }
 
-export default ServiceList;
+export default AboutServiceList;

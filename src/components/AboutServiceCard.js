@@ -11,20 +11,13 @@ import {
     from 'reactstrap';
 import {Link} from "react-router-dom";
 
-function ServiceCard(props) {
+function AboutServiceCard(props) {
     const service = props.service;
     return (
         <>
 
-                <Card className="col-3 pt-md-5 text-center ">
-                    <Link
-                          to={{
-                              pathname: "/service/request/" + service.id,
-                              state: {
-                                  buildingId: props.bid,
-                              },
-                          }}
-                    >
+            <Card className="col-3 pt-md-5 text-center ">
+                <Link to={"/service/" + service.id}>
                     <CardImg
                         alt="Card image cap"
                         src={`${process.env.PUBLIC_URL}/assets/images/services/${service.img_url}`}
@@ -36,11 +29,11 @@ function ServiceCard(props) {
                             {service.name}
                         </CardTitle>
                     </CardBody>
-                    </Link>
-                </Card>
+                </Link>
+            </Card>
 
         </>
     );
 }
 
-export default ServiceCard;
+export default AboutServiceCard;

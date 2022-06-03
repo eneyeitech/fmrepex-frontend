@@ -26,7 +26,7 @@ export function saveUser(user) {
     url.search = new URLSearchParams(params).toString();
     //console.log(delete user.id);
     //console.log(user);
-    return fetch(baseUrl + (user.id || "/api/auth/signup?type="), {
+    return fetch(baseUrl + (user.id || "/api/auth/signup?type=manager"), {
         method: user.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
         headers: { "content-type": "application/json" },
         body: JSON.stringify(user)

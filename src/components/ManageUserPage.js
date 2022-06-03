@@ -16,6 +16,7 @@ const ManageUserPage = props => {
         name: "",
         lastname: "",
         email: "",
+        phonenumber:"",
         password: ""
     });
 
@@ -52,6 +53,7 @@ const ManageUserPage = props => {
         if (!user.name) _errors.name = "Name is required";
         if (!user.lastname) _errors.lastname = "Lastname is required";
         if (!user.email) _errors.email = "Email is required";
+        if (!user.phonenumber) _errors.phonenumber = "Phone number is required";
         if (!user.password) _errors.password = "Password is required";
 
         setErrors(_errors);
@@ -60,7 +62,6 @@ const ManageUserPage = props => {
     }
 
     function handleSubmit(event) {
-        if (!user.id) return;
         event.preventDefault();
         if (!formIsValid()) return;
         userApi.addUser(user).then(() => {

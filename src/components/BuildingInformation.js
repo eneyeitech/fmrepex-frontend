@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {getTenantBuildings, unAssignTenantToBuilding} from "../api/buildingApi";
 import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
+import MaintenanceList from "./MaintenanceList";
+import MaintenanceRequestsPage from "./MaintenanceRequestsPage";
 
 function BuildingInformation(props) {
 
@@ -9,6 +12,8 @@ function BuildingInformation(props) {
         address: "",
         state: "",
     });
+
+    const [maintenances, setMaintenances] = useState([]);
 
 
     useEffect(() => {
@@ -20,7 +25,7 @@ function BuildingInformation(props) {
                     setBuilding(response[0]);
                 }
 
-                toast.success("Building retrieved");
+                //toast.success("Building retrieved");
             });
         }
 
@@ -29,10 +34,19 @@ function BuildingInformation(props) {
     if(building.name){
         return (
             <>
-                <h3 className="pt-md-5">Building Detail</h3>
-                <p>Name: {building.name}</p>
-                <p>Address: {building.address}</p>
-                <p>State: {building.state}</p>
+                <div
+                    className="row g-0 border rounded overflow-hidden flex-md-row mb-4 mt-4 shadow-sm h-md-250 position-relative">
+                    <div className="col p-4 d-flex flex-column">
+                        <h4 className="mb-3 text-muted">Building Detail</h4>
+                        <strong className="d-inline-block mb-2 text-primary">{building.name}</strong>
+                        <h6 className="mb-0">{building.address}</h6>
+                        <div className="mb-4 text-muted">{building.state}</div>
+                        <p className="card-text mb-auto"></p>
+                        <a href="#" className="stretched-link"></a>
+                    </div>
+                </div>
+
+                <MaintenanceRequestsPage bid={building.id}/>
 
             </>
         );
