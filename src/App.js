@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
-import Home from "./components/Home";
+import Home from "./components/home/Home";
 import ServiceList from "./components/ServiceList";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
@@ -10,10 +10,10 @@ import App1 from "./App1";
 import NotFoundPage from "./components/NotFoundPage";
 import './css/main.css'
 import ServicePage from "./components/ServicePage";
-import ManageSignUp from "./components/ManageSignUp";
+import ManageSignUp from "./components/authentication/ManageSignUp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ManageLogin from "./components/ManageLogin";
+import ManageLogin from "./components/authentication/ManageLogin";
 import Dashboard from "./components/Dashboard";
 import ManageCompany from "./components/ManageCompany";
 import UsersPage from "./components/UsersPage";

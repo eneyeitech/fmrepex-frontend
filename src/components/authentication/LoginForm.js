@@ -1,5 +1,5 @@
 import React from "react";
-import TextInput from "./common/TextInput";
+import TextInput from "../common/TextInput";
 
 function LoginForm(props) {
     return (

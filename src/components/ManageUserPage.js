@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as userApi from "../api/userApi";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "./authentication/SignUpForm";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";

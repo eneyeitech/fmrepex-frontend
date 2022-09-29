@@ -1,7 +1,7 @@
 import Header from "./common/Header";
 import Footer from "./common/Footer";
 import '../css/main.css';
-import Home from "./Home";
+import Home from "./home/Home";
 import ServiceCard from "./ServiceCard";
 import {services} from "../api/services";
 import ServiceList from "./ServiceList";
