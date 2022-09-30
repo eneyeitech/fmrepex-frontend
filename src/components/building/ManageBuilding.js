@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import * as companyApi from "../api/companyApi";
+import * as companyApi from "../../api/companyApi";
+import * as managerApi from "../../api/command/managerApi"
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
-import CompanyForm from "./CompanyForm";
+import CompanyForm from "../CompanyForm";
 import {useLocation} from "react-router-dom";
 import BuildingForm from "./BuildingForm";
-import {getBuildingBySlug, saveBuilding} from "../api/buildingApi";
-import TenantInformation from "./TenantInformation";
+import {getBuildingBySlug} from "../../api/query/buildingQueryApi";
+import TenantInformation from "../TenantInformation";
 
 
 const ManageBuilding = props => {
@@ -14,8 +15,13 @@ const ManageBuilding = props => {
     const [building, setBuilding] = useState({
         id: null,
         name: "",
-        address: "",
+        noOfFlats: 0,
+        houseNo: "",
+        streetName: "",
+        townName: "",
         state: "",
+        longitude: "",
+        latitude: "",
     });
 
     const location = useLocation();
@@ -46,8 +52,13 @@ const ManageBuilding = props => {
         const _errors = {};
 
         if (!building.name) _errors.name = "Name is required";
-        if (!building.address) _errors.address = "Address is required";
+        if (!building.noOfFlats) _errors.noOfFlats = "No of flats is required";
+        if (!building.houseNo) _errors.houseNo = "House no is required";
+        if (!building.streetName) _errors.streetName = "Street name is required";
+        if (!building.townName) _errors.townName = "Town name is required";
         if (!building.state) _errors.state = "State is required";
+        if (!building.longitude) _errors.longitude = "Longitude is required";
+        if (!building.latitude) _errors.latitude = "Latitude is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties
@@ -57,7 +68,7 @@ const ManageBuilding = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        saveBuilding(building).then(response => {
+        managerApi.saveBuilding(building).then(response => {
             console.log(response);
 
             props.history.push("/buildings");
@@ -68,6 +79,7 @@ const ManageBuilding = props => {
     return (
         <>
             <Container>
+                <div className="p-md-5">
                 <h2 className="pt-md-5">Manage Building</h2>
                 <BuildingForm
                     errors={errors}
@@ -76,6 +88,7 @@ const ManageBuilding = props => {
                     onSubmit={handleSubmit}
                 />
                 {(building.id) && <TenantInformation building={building}/>}
+                </div>
             </Container>
         </>
     );

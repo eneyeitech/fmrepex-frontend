@@ -23,7 +23,7 @@ function BuildingList(props) {
                         <td>
                             <Link to={"/building/" + building.id}>{building.name}</Link>
                         </td>
-                        <td>{building.address}</td>
+                        <td>{building.streetName}</td>
                         <td>{building.state}</td>
                     </tr>
                 );

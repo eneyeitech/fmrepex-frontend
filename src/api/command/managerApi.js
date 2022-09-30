@@ -48,4 +48,19 @@ export function addUser(user) {
         .catch(handleError);
 }
 
+export function saveBuilding(building) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
 
+    console.log(building, email, password);
+    return fetch(baseUrl + "/api/manager/new/building", {
+        method: building.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify(building)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}

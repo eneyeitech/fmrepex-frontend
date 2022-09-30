@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import {Link} from "react-router-dom";
-import UserList from "./user/UserList";
+import UserList from "../user/UserList";
 import {Container} from "reactstrap";
-import {getUsers} from "../api/userApi";
-import {modifiedUsers} from "../business/usersService";
+import {getUsers} from "../../api/userApi";
+import {modifiedUsers} from "../../business/usersService";
 import BuildingList from "./BuildingList";
-import {getBuildings} from "../api/buildingApi";
+import {getBuildings} from "../../api/query/buildingQueryApi";
+
 
 function BuildingsPage() {
 
@@ -24,11 +25,13 @@ function BuildingsPage() {
     return (
         <>
             <Container>
+                <div className="p-md-5">
                 <h2 className="pt-md-5">Buildings</h2>
                 <Link className="btn btn-primary" to="/building">
                     Add Building
                 </Link>
                 <BuildingList buildings={buildings}/>
+                </div>
             </Container>
         </>
     );

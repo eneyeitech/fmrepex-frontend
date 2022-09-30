@@ -3,7 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getCompanyId, isAdministrator, isDependant, isManager, isTenant, isTechnician} from "../business/userGroupService";
 import ManageCompany from "./ManageCompany";
-import BuildingInformation from "./BuildingInformation";
+import BuildingInformation from "./building/BuildingInformation";
 import ManagerDashboard from "./dashboard/ManagerDashboard";
 import AdministratorDashboard from "./dashboard/AdministratorDashboard";
 

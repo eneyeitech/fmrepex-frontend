@@ -4,7 +4,7 @@ import {CardImg, Container} from "reactstrap";
 import { toast } from "react-toastify";
 import CompanyForm from "./CompanyForm";
 import {useLocation} from "react-router-dom";
-import BuildingForm from "./BuildingForm";
+import BuildingForm from "./building/BuildingForm";
 import {getBuildingBySlug, saveBuilding} from "../api/buildingApi";
 import TenantInformation from "./TenantInformation";
 import MaintenanceForm from "./MaintenanceForm";

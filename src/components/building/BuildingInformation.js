@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {getTenantBuildings, unAssignTenantToBuilding} from "../api/buildingApi";
+import {getTenantBuildings, unAssignTenantToBuilding} from "../../api/buildingApi";
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
-import MaintenanceList from "./MaintenanceList";
-import MaintenanceRequestsPage from "./MaintenanceRequestsPage";
+import MaintenanceList from "../MaintenanceList";
+import MaintenanceRequestsPage from "../MaintenanceRequestsPage";
 
 function BuildingInformation(props) {
 
@@ -42,7 +42,7 @@ function BuildingInformation(props) {
                         <h6 className="mb-0">{building.address}</h6>
                         <div className="mb-4 text-muted">{building.state}</div>
                         <p className="card-text mb-auto"></p>
-                        <a href="#" className="stretched-link"></a>
+                        <a href="src/components/building/BuildingInformation#" className="stretched-link"></a>
                     </div>
                 </div>
 

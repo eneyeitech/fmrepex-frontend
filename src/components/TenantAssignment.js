@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
-import BuildingForm from "./BuildingForm";
+import BuildingForm from "./building/BuildingForm";
 import {useLocation} from "react-router-dom";
 import {assignTenantToBuilding, getBuildingBySlug, saveBuilding} from "../api/buildingApi";
 import {toast} from "react-toastify";
