@@ -1,5 +1,19 @@
 import userGroups from "./userGroups";
 
+export function isAdministrator(loggedInUser){
+    if(!loggedInUser) {
+        return false;
+    }
+
+    return loggedInUser.userGroups.some(grp => {
+        if (grp.code === userGroups.ROLE_ADMINISTRATOR) {
+            return true;
+        }
+
+        return false;
+    });
+}
+
 export function isManager(loggedInUser){
     if(!loggedInUser) {
         return false;
@@ -35,6 +49,20 @@ export function isTechnician(loggedInUser){
 
     return loggedInUser.userGroups.some(grp => {
         if (grp.code === userGroups.ROLE_TECHNICIAN) {
+            return true;
+        }
+
+        return false;
+    });
+}
+
+export function isDependant(loggedInUser){
+    if(!loggedInUser) {
+        return false;
+    }
+
+    return loggedInUser.userGroups.some(grp => {
+        if (grp.code === userGroups.ROLE_DEPENDANT) {
             return true;
         }
 

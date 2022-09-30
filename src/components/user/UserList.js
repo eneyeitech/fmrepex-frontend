@@ -16,7 +16,7 @@ function UserList(props) {
             <tbody>
             { props.users.map( user => {
                 return (
-                    <tr key={user.id}>
+                    <tr key={user.email}>
                         <td>
 
                         </td>

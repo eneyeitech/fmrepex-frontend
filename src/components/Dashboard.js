@@ -1,9 +1,12 @@
 import {Container} from "reactstrap";
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getCompanyId, isManager, isTenant} from "../business/userGroupService";
+import {getCompanyId, isAdministrator, isDependant, isManager, isTenant, isTechnician} from "../business/userGroupService";
 import ManageCompany from "./ManageCompany";
 import BuildingInformation from "./BuildingInformation";
+import ManagerDashboard from "./dashboard/ManagerDashboard";
+import AdministratorDashboard from "./dashboard/AdministratorDashboard";
+
 
 function Dashboard(props){
 
@@ -20,12 +23,15 @@ function Dashboard(props){
 
     const loggedInUser = user ? user : JSON.parse(localStorage.getItem('USROBJ'));
 
-    const welcome = loggedInUser ? "Welcome "+loggedInUser.name + "," : "";
+    const welcome = loggedInUser ? "Welcome "+loggedInUser.fullName + "," : "";
 
     const aTenant = isTenant(loggedInUser);
     const aManager = isManager(loggedInUser);
-    const companyId = getCompanyId(loggedInUser);
-    console.log("CID", companyId);
+    const aAdmin = isAdministrator(loggedInUser);
+    const  aTechnician = isTechnician(loggedInUser);
+    const  aDependant = isDependant(loggedInUser);
+    //const companyId = getCompanyId(loggedInUser);
+    //console.log("CID", companyId);
 
     const msg = aManager ? "Property Manager":"Tenant";
 
@@ -33,40 +39,15 @@ function Dashboard(props){
 
     return (
         <>
-            <Container>
-                <div className="p-md-5">
-                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> ({msg})</span></h2>
-                    {welcome}
-                    <br/>
-                    {
-                        aManager && <>
-                            <Link to={{
-                        pathname: "/company",
-                        state: {
-                            companyId: companyId,
-                        },
-                        }}
-                        >Manage Company</Link>
-                            <br/>
-                            <Link to={{
-                                pathname: "/buildings",
-                            }}
-                            >Manage Building</Link>
-                        <br/>
-                        <Link to="/users">Manage Users</Link>
-                            <br/>
-                            <Link to="/maintenance">View Maintenance Request</Link>
-                        </>
-
-                    }
 
 
+            {aAdmin && <AdministratorDashboard user={loggedInUser}/>}
 
+                    {aManager && <ManagerDashboard user={loggedInUser}/>}
 
                     {aTenant && <BuildingInformation uid={loggedInUser.id}/>}
 
-                </div>
-            </Container>
+
         </>
     );
 }

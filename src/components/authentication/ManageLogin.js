@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as userApi from "../../api/userApi";
-import SignUpForm from "./SignUpForm";
+import * as authApi from "../../api/command/authenticationApi";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import LoginForm from "./LoginForm";
@@ -11,7 +10,7 @@ const ManageLogin= props => {
     const [user, setUser] = useState({
         id: null,
         email: "",
-        password: ""
+        pass: ""
     });
 
 
@@ -26,7 +25,7 @@ const ManageLogin= props => {
         const _errors = {};
 
         if (!user.email) _errors.email = "Email is required";
-        if (!user.password) _errors.password = "Password is required";
+        if (!user.pass) _errors.pass = "Password is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties
@@ -36,10 +35,10 @@ const ManageLogin= props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        userApi.loginUser(user).then(response => {
+        authApi.login(user).then(response => {
             const loggedInUser = response.user;
             localStorage.setItem('USROBJ', JSON.stringify(loggedInUser));
-            localStorage.setItem('PSSWD', user.password);
+            localStorage.setItem('PSSWD', user.pass);
             /**props.history.push({
                 pathname: '/services',
                 state: user

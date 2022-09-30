@@ -3,15 +3,15 @@ import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
 import UserList from "./UserList";
 import {Container} from "reactstrap";
-import {getUsers} from "../api/userApi";
-import {modifiedUsers} from "../business/usersService";
+import {getUsersByManager} from "../../api/query/userQueryApi";
+import {modifiedUsers} from "../../business/usersService";
 
 function UsersPage() {
 
     const [users, setUsers] = useState([]);
 
     useEffect( () => {
-        getUsers().then(response => {
+        getUsersByManager().then(response => {
             console.log(response);
             setUsers(response);
         });
@@ -22,11 +22,13 @@ function UsersPage() {
     return (
         <>
             <Container>
+                <div className="p-md-5">
             <h2 className="pt-md-5">Users</h2>
             <Link className="btn btn-primary" to="/user">
                 Add User
             </Link>
             <UserList users={displayedUsers}/>
+                </div>
             </Container>
         </>
     );

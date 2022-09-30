@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import * as userApi from "../api/userApi";
-import SignUpForm from "./authentication/SignUpForm";
+import * as managerApi from "../../api/command/managerApi";
+import SignUpForm from "../authentication/SignUpForm";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";
-import {getBuildingBySlug} from "../api/buildingApi";
-import {getUserBySlug} from "../api/userApi";
+import {getBuildingBySlug} from "../../api/buildingApi";
+import {getUserBySlug} from "../../api/userApi";
 
 
 const ManageUserPage = props => {
@@ -14,10 +14,10 @@ const ManageUserPage = props => {
         id: null,
         type:"",
         name: "",
-        lastname: "",
+        //lastname: "",
         email: "",
-        phonenumber:"",
-        password: ""
+        phone:"",
+        pass: ""
     });
 
     useEffect(() => {
@@ -31,10 +31,10 @@ const ManageUserPage = props => {
                 console.log(response.name);
                 let id = response.id;
                 let name = response.name;
-                let lastname = response.lastname;
+                //let lastname = response.lastname;
                 let email = response.email;
                 let type = response.type;
-                setUser({...user,id, name, lastname, email, type});
+                setUser({...user,id, name, email, type});
             })
         }
     }, [props.user, props.match.params.slug]);
@@ -51,10 +51,10 @@ const ManageUserPage = props => {
 
         if (!user.type) _errors.type = "Type is required";
         if (!user.name) _errors.name = "Name is required";
-        if (!user.lastname) _errors.lastname = "Lastname is required";
+        //if (!user.lastname) _errors.lastname = "Lastname is required";
         if (!user.email) _errors.email = "Email is required";
-        if (!user.phonenumber) _errors.phonenumber = "Phone number is required";
-        if (!user.password) _errors.password = "Password is required";
+        if (!user.phone) _errors.phone = "Phone number is required";
+        if (!user.pass) _errors.pass = "Password is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties
@@ -64,7 +64,7 @@ const ManageUserPage = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        userApi.addUser(user).then(() => {
+        managerApi.addUser(user).then(() => {
             props.history.push("/users");
             toast.success("User saved.");
         });
@@ -73,6 +73,7 @@ const ManageUserPage = props => {
     return (
         <>
             <Container>
+                <div className="p-md-5">
                 <h2 className="pt-md-5">Add User</h2>
                 <UserForm
                     errors={errors}
@@ -80,6 +81,7 @@ const ManageUserPage = props => {
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                 />
+                </div>
             </Container>
         </>
     );

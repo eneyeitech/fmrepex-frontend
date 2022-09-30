@@ -6,8 +6,8 @@ function SignUpForm(props) {
         <form onSubmit={props.onSubmit}>
 
             <TextInput
-                id="name"
-                label="Name"
+                id="fullName"
+                label="Full name"
                 onChange={props.onChange}
                 name="name"
                 className="form-control"
@@ -15,14 +15,6 @@ function SignUpForm(props) {
                 error={props.errors.name}
             />
 
-            <TextInput
-                id="lastname"
-                label="Lastname"
-                onChange={props.onChange}
-                name="lastname"
-                value={props.user.lastname}
-                error={props.errors.lastname}
-            />
 
             <TextInput
                 id="email"
@@ -34,21 +26,21 @@ function SignUpForm(props) {
             />
 
             <TextInput
-                id="phonenumber"
+                id="phoneNumber"
                 label="Phone number"
                 onChange={props.onChange}
-                name="phonenumber"
-                value={props.user.phonenumber}
-                error={props.errors.phonenumber}
+                name="phone"
+                value={props.user.phone}
+                error={props.errors.phone}
             />
 
             <TextInput
                 id="password"
                 label="Password"
                 onChange={props.onChange}
-                name="password"
-                value={props.user.password}
-                error={props.errors.password}
+                name="pass"
+                value={props.user.pass}
+                error={props.errors.pass}
             />
 
             <input type="submit" value="Save" className="btn btn-primary mt-2" />

@@ -9,10 +9,10 @@ const ManageSignUp = props => {
     const [errors, setErrors] = useState({});
     const [user, setUser] = useState({
         id: null,
-        fullName: "",
+        name: "",
         email: "",
-        phonenumber:"",
-        password: ""
+        phone:"",
+        pass: ""
     });
 
 
@@ -26,10 +26,10 @@ const ManageSignUp = props => {
     function formIsValid() {
         const _errors = {};
 
-        if (!user.fullName) _errors.fullName = "Name is required";
+        if (!user.name) _errors.name = "Name is required";
         if (!user.email) _errors.email = "Email is required";
-        if (!user.phonenumber) _errors.phonenumber = "Phone number is required";
-        if (!user.password) _errors.password = "Password is required";
+        if (!user.phone) _errors.phone = "Phone number is required";
+        if (!user.pass) _errors.pass = "Password is required";
 
         setErrors(_errors);
         // Form is valid if the errors object has no properties

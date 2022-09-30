@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import {Link} from "react-router-dom";
-import UserList from "./UserList";
+import UserList from "./user/UserList";
 import {Container} from "reactstrap";
 import {getUsers} from "../api/userApi";
 import {modifiedUsers} from "../business/usersService";

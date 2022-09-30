@@ -47,7 +47,7 @@ export function addUser(user) {
     console.log(user, email, password);
     if(user.type){
         console.log("type is set", user.type);
-        path = "/api/user/new?type="+user.type
+        path = "/api/auth/signup?type="+user.type
     }else{
         console.log("type is not set");
     }
@@ -66,12 +66,12 @@ export function loginUser(user) {
     let params = {};
     url.search = new URLSearchParams(params).toString();
     //console.log(delete user.id);
-    //console.log(user);
-    return fetch(baseUrl + (user.id || "/api/auth/login"), {
+    console.log(user);
+    return fetch(baseUrl + (user.id || "/api/auth/signin"), {
         method: user.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
         headers: {
             "content-type": "application/json",
-            'Authorization': 'Basic ' + btoa(`${user.email}:${user.password}`)
+            'Authorization': 'Basic ' + btoa(`${user.email}:${user.pass}`)
         },
         body: JSON.stringify(user)
     })

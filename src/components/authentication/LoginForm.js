@@ -14,12 +14,12 @@ function LoginForm(props) {
             />
 
             <TextInput
-                id="password"
+                id="pass"
                 label="Password"
                 onChange={props.onChange}
-                name="password"
-                value={props.user.password}
-                error={props.errors.password}
+                name="pass"
+                value={props.user.pass}
+                error={props.errors.pass}
             />
 
             <input type="submit" value="Login" className="btn btn-primary mt-2" />
