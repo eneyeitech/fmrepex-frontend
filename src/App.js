@@ -20,12 +20,12 @@ import UsersPage from "./components/user/UsersPage";
 import ManageUserPage from "./components/user/ManageUserPage";
 import BuildingsPage from "./components/building/BuildingsPage";
 import ManageBuilding from "./components/building/ManageBuilding";
-import TenantAssignment from "./components/TenantAssignment";
-import TenantUnAssignment from "./components/TenantUnAssignment";
-import MaintenanceRequestsPage from "./components/MaintenanceRequestsPage";
-import ManageMaintenanceRequest from "./components/ManageMaintenanceRequest";
-import ManagersMaintenancePage from "./components/ManagersMaintenancePage";
-import MaintenanceRequestDetail from "./components/MaintenanceRequestDetail";
+import TenantAssignment from "./components/tenant/TenantAssignment";
+import TenantUnAssignment from "./components/tenant/TenantUnAssignment";
+import MaintenanceRequestsPage from "./components/request/MaintenanceRequestsPage";
+import ManageMaintenanceRequest from "./components/request/ManageMaintenanceRequest";
+import ManagersMaintenancePage from "./components/request/ManagersMaintenancePage";
+import MaintenanceRequestDetail from "./components/request/MaintenanceRequestDetail";
 import AboutServiceList from "./components/AboutServiceList";
 import AboutServicePage from "./components/AboutServicePage";
 

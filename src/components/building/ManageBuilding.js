@@ -7,7 +7,7 @@ import CompanyForm from "../CompanyForm";
 import {useLocation} from "react-router-dom";
 import BuildingForm from "./BuildingForm";
 import {getBuildingBySlug} from "../../api/query/buildingQueryApi";
-import TenantInformation from "../TenantInformation";
+import TenantInformation from "../tenant/TenantInformation";
 
 
 const ManageBuilding = props => {

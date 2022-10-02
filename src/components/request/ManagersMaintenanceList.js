@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 
-function MaintenanceList(props) {
+function ManagersMaintenanceList(props) {
     return (
         <table className="table">
             <thead>
             <tr>
-                <th>&nbsp;</th>
                 <th>&nbsp;</th>
                 <th>Name</th>
                 <th>Description</th>
@@ -20,20 +19,15 @@ function MaintenanceList(props) {
                     <tr key={maintenance.id}>
                         <td>
                             <Link to={{
-                                pathname: "/request/" + maintenance.id,
+                                pathname: "/request/detail/" + maintenance.id,
                                 state: {
                                     buildingId: props.bid,
                                 },
-                            }}>Edit</Link>
+                            }}>View</Link>
                         </td>
-                        <td><Link to={{
-                            pathname: "/request/detail/" + maintenance.id,
-                            state: {
-                                buildingId: props.bid,
-                            },
-                        }}>View</Link></td>
                         <td>
-                            {maintenance.name}
+                            {maintenance.asset}
+                            <br/><span className="text-success">Building name</span>
                         </td>
                         <td>{maintenance.description}</td>
                         <td>{maintenance.status}</td>
@@ -47,4 +41,4 @@ function MaintenanceList(props) {
 
 
 
-export default MaintenanceList;
+export default ManagersMaintenanceList;

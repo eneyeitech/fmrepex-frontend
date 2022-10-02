@@ -45,7 +45,7 @@ function Dashboard(props){
 
                     {aManager && <ManagerDashboard user={loggedInUser}/>}
 
-                    {aTenant && <BuildingInformation uid={loggedInUser.id}/>}
+                    {aTenant && <BuildingInformation bid={loggedInUser.buildingId}/>}
 
 
         </>

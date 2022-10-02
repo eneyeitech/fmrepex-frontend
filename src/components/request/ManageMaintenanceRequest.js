@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from "react";
-import * as companyApi from "../api/companyApi";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
-import CompanyForm from "./CompanyForm";
 import {useLocation} from "react-router-dom";
-import BuildingForm from "./building/BuildingForm";
-import {getBuildingBySlug, saveBuilding} from "../api/buildingApi";
-import TenantInformation from "./TenantInformation";
 import MaintenanceForm from "./MaintenanceForm";
-import {getMaintenanceBySlug, saveMaintenance} from "../api/maintenanceApi";
+import {getRequestBySlug} from "../../api/query/requetQueryApi";
+import {saveRequest} from "../../api/command/tenantApi";
 
 
-const ManageServiceRequest = props => {
+const ManageMaintenanceRequest = props => {
     const [errors, setErrors] = useState({});
     const [maintenance, setMaintenance] = useState({
         id: null,
-        name: "",
+        asset: "",
+        category: "",
         description: "",
     });
 
-    const { buildingId } = props;
+    const location = useLocation();
+    const { buildingId } = location.state;
     console.log(buildingId);
 
     useEffect(() => {
         const _maintenance = props.maintenance;
-        const {service} = props;
+        const slug = props.match.params.slug // from the path `/building/:slug
+        console.log("SLUG", slug);
         if (_maintenance) {
             setMaintenance(_maintenance);
-        }  else if(service) {
-            setMaintenance({...maintenance, name:service});
+        } else if(slug) {
+            getRequestBySlug(slug).then(response=>{
+                console.log(response);
+                setMaintenance(response);
+            })
         }
-    }, [props.maintenance, props.service]);
+    }, [props.maintenance, props.match.params.slug]);
 
     function handleChange({ target }) {
         setMaintenance({
@@ -42,7 +44,8 @@ const ManageServiceRequest = props => {
     function formIsValid() {
         const _errors = {};
 
-        if (!maintenance.name) _errors.name = "Name is required";
+        if (!maintenance.asset) _errors.asset = "Name is required";
+        if (!maintenance.category) _errors.category = "Category is required"
         if (!maintenance.description) _errors.description = "Description is required";
 
         setErrors(_errors);
@@ -53,9 +56,10 @@ const ManageServiceRequest = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        saveMaintenance(maintenance, buildingId).then(response => {
+        saveRequest(maintenance).then(response => {
             console.log(response);
-            //props.history.push("/dashboard");
+
+            props.history.push("/dashboard");
             toast.success("Maintenance Request sent.");
         });
     }
@@ -63,16 +67,18 @@ const ManageServiceRequest = props => {
     return (
         <>
             <Container>
-                <h2 className="pt-md-5"></h2>
+                <div className="p-md-5">
+                <h2 className="pt-md-5">Make Request</h2>
                 <MaintenanceForm
                     errors={errors}
                     maintenance={maintenance}
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                 />
+                </div>
             </Container>
         </>
     );
 };
 
-export default ManageServiceRequest;
+export default ManageMaintenanceRequest;

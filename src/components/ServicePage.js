@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {services} from "../api/services";
 import {Card, CardBody, CardImg, CardTitle, Container} from "reactstrap";
 import {Link, useLocation} from "react-router-dom";
-import ManageServiceRequest from "./ManageServiceRequest";
+import ManageServiceRequest from "./request/ManageServiceRequest";
 const _services = services;
 
 

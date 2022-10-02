@@ -64,3 +64,41 @@ export function saveBuilding(building) {
         .then(handleResponse)
         .catch(handleError);
 }
+
+export function assignTenantToBuilding(tenant) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/manager/assign/tenant/${tenant.email}/building/${tenant.buildingId}`
+
+    console.log(tenant, email, password);
+
+    return fetch(baseUrl + path, {
+        method: "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify(tenant)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
+
+export function unAssignTenantToBuilding(tenant) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+
+    const path = `/api/manager/unassign/tenant/${tenant.email}/building/${tenant.buildingId}`
+
+    console.log(tenant, email, password);
+    return fetch(baseUrl + path, {
+        method: "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify(tenant)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}

@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import {Link} from "react-router-dom";
-import UserList from "./user/UserList";
-import {Container} from "reactstrap";
-import {getUsers} from "../api/userApi";
-import {modifiedUsers} from "../business/usersService";
-import {getMaintenances} from "../api/maintenanceApi";
+import {getRequestsByTenant} from "../../api/query/requetQueryApi";
 import MaintenanceList from "./MaintenanceList";
-import {getBuildings} from "../api/buildingApi";
 
 function MaintenanceRequestsPage(props) {
 
@@ -17,7 +12,7 @@ function MaintenanceRequestsPage(props) {
     useEffect( () => {
         const _bid = props.bid;
         if(_bid){
-            getMaintenances(_bid).then(response => {
+            getRequestsByTenant(_bid).then(response => {
                 console.log(response);
                 setMaintenances(response);
             });
@@ -27,6 +22,7 @@ function MaintenanceRequestsPage(props) {
     console.log(maintenances);
     return (
         <>
+            <div className="p-md-5">
                 <h4 className="pt-md-2">Maintenance Requests</h4>
 
             <Link className="btn btn-primary" to={{
@@ -38,7 +34,7 @@ function MaintenanceRequestsPage(props) {
                 Make Maintenance Request
             </Link>
                 <MaintenanceList maintenances={maintenances} bid={bid}/>
-
+            </div>
         </>
     );
 }

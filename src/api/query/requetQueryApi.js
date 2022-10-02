@@ -1,14 +1,14 @@
-import { handleResponse, handleError } from "./../apiUtils";
+import {handleError, handleResponse} from "../apiUtils";
 //const baseUrl = process.env.REACT_APP_API_URL + "/courses/";
 const baseUrl = "http://localhost:8080";
 const url = new URL('http://localhost:8080/api/auth/signup');
 
-export function getUsersByManager() {
+export function getRequestBySlug(slug) {
     const email = JSON.parse(localStorage.getItem('USROBJ')).email;
     const password = localStorage.getItem('PSSWD');
 
-    console.log(email, password);
-    return fetch(baseUrl + "/api/manager/users", {
+    console.log(slug, email, password);
+    return fetch(baseUrl + "/api/slug/request?slug=" + slug, {
         headers: {
             "content-type": "application/json",
             'Authorization': 'Basic ' + btoa(`${email}:${password}`)
@@ -18,11 +18,13 @@ export function getUsersByManager() {
         .catch(handleError);
 }
 
-export function getTenantsByBuilding(bid) {
+
+
+export function getRequestsByBuilding(bid) {
     const email = JSON.parse(localStorage.getItem('USROBJ')).email;
     const password = localStorage.getItem('PSSWD');
-    const path = `/api/tenant/building/${bid}`;
-    console.log(bid, email, password);
+    const path = `/api/building/${bid}/request`;
+    console.log(email, password);
     return fetch(baseUrl + path, {
         headers: {
             "content-type": "application/json",
@@ -33,12 +35,27 @@ export function getTenantsByBuilding(bid) {
         .catch(handleError);
 }
 
-export function getUserBySlug(slug) {
+export function getRequestsByManager() {
     const email = JSON.parse(localStorage.getItem('USROBJ')).email;
     const password = localStorage.getItem('PSSWD');
+    const path = `/api/manager/request`;
+    console.log(email, password);
+    return fetch(baseUrl + path, {
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
 
-    console.log(slug, email, password);
-    return fetch(baseUrl + "/api/slug/user?slug=" + slug, {
+export function getRequestsByTenant() {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/tenant/request`;
+    console.log(email, password);
+    return fetch(baseUrl + path, {
         headers: {
             "content-type": "application/json",
             'Authorization': 'Basic ' + btoa(`${email}:${password}`)

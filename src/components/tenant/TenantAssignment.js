@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
-import BuildingForm from "./building/BuildingForm";
+import BuildingForm from "../building/BuildingForm";
 import {useLocation} from "react-router-dom";
-import {assignTenantToBuilding, getBuildingBySlug, saveBuilding, unAssignTenantToBuilding} from "../api/buildingApi";
+import {assignTenantToBuilding} from "../../api/command/managerApi";
 import {toast} from "react-toastify";
 import TenantAssignmentForm from "./TenantAssignmentForm";
 
 
-function TenantUnAssignment(props) {
+function TenantAssignment(props) {
 
     const [errors, setErrors] = useState({});
     const [tenant, setTenant] = useState({
@@ -47,24 +47,26 @@ function TenantUnAssignment(props) {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        unAssignTenantToBuilding(tenant).then(response => {
+        assignTenantToBuilding(tenant).then(response => {
             console.log(response);
 
             props.history.push(`/building/${location.state.buildingId}`);
-            toast.success("Tenant unassigned.");
+            toast.success("Tenant assigned.");
         });
     }
 
     return (
         <>
             <Container>
-                <h2 className="pt-md-5">Unassign Tenant</h2>
+                <div className="p-md-5">
+                <h2 className="pt-md-5">Assign Tenant</h2>
                 <TenantAssignmentForm
                     errors={errors}
                     tenant={tenant}
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                 />
+                </div>
             </Container>
         </>
     );
@@ -72,4 +74,4 @@ function TenantUnAssignment(props) {
 
 
 
-export default TenantUnAssignment;
+export default TenantAssignment;
