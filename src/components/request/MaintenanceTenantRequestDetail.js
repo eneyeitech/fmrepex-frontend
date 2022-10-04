@@ -4,9 +4,7 @@ import {useLocation} from "react-router-dom";
 import {getRequestBySlug} from "../../api/query/requestQueryApi";
 import {getBuildingBySlug} from "../../api/query/buildingQueryApi";
 import {getUserBySlug} from "../../api/query/userQueryApi";
-import {createWorkOrder} from "../../api/command/managerApi";
-import {toast} from "react-toastify";
-import WorkOrderForm from "./WorkOrderForm";
+import TextInput from "../common/TextInput";
 
 
 const MaintenanceRequestDetail = props => {
@@ -30,13 +28,6 @@ const MaintenanceRequestDetail = props => {
         status:"",
         buildingId:null,
         tenantEmail:null
-    });
-
-    const [workOrder, setWorkOrder] = useState({
-        id: null,
-        description: "",
-        technicianEmail:"",
-        requestId:null,
     });
 
     const location = useLocation();
@@ -67,41 +58,11 @@ const MaintenanceRequestDetail = props => {
                 setTenant(response);
             })
         }
-        if(maintenance.id){
-            setWorkOrder({...workOrder, requestId:maintenance.id});
-        }
-    }, [props.maintenance, props.match.params.slug, maintenance.buildingId, maintenance.tenantEmail, maintenance.id]);
+    }, [props.maintenance, props.match.params.slug, maintenance.buildingId, maintenance.tenantEmail]);
 
-
-    function handleChange({ target }) {
-        setWorkOrder({
-            ...workOrder,
-            [target.name]: target.value
-        });
+    const handleClick = () => {
+        console.log("Mango Apple");
     }
-
-    function formIsValid() {
-        const _errors = {};
-
-        if (!workOrder.technicianEmail) _errors.technicianEmail = "Email is required";
-        if (!workOrder.description) _errors.description = "Description is required";
-
-        setErrors(_errors);
-        // Form is valid if the errors object has no properties
-        return Object.keys(_errors).length === 0;
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        if (!formIsValid()) return;
-        createWorkOrder(workOrder).then(response => {
-            console.log(response);
-
-            props.history.push(`/maintenance`);
-            toast.success("Work Order created.");
-        });
-    }
-
 
     return (
         <>
@@ -137,14 +98,8 @@ const MaintenanceRequestDetail = props => {
                                 <h6 className="mb-0"></h6>
                                 <div className="mb-4 text-muted">{maintenance.status}</div>
                                 <p className="card-text mb-auto">{maintenance.description}</p>
-                                {maintenance.status == "PENDING" &&
-                                    <WorkOrderForm
-                                        errors={errors}
-                                        workOrder={workOrder}
-                                        onChange={handleChange}
-                                        onSubmit={handleSubmit}
-                                    />
-                                }
+
+
                             </div>
                         </div>
                     </div>

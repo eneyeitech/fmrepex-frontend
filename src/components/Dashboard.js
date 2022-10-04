@@ -6,6 +6,10 @@ import ManageCompany from "./ManageCompany";
 import BuildingInformation from "./building/BuildingInformation";
 import ManagerDashboard from "./dashboard/ManagerDashboard";
 import AdministratorDashboard from "./dashboard/AdministratorDashboard";
+import TechnicianDashboard from "./dashboard/TechnicianDashboard";
+import {getUserLabel} from "../business/usersService";
+import TenantDashboard from "./dashboard/TenantDashboard";
+import DependantDashboard from "./dashboard/DependantDashboard";
 
 
 function Dashboard(props){
@@ -30,24 +34,33 @@ function Dashboard(props){
     const aAdmin = isAdministrator(loggedInUser);
     const  aTechnician = isTechnician(loggedInUser);
     const  aDependant = isDependant(loggedInUser);
-    //const companyId = getCompanyId(loggedInUser);
-    //console.log("CID", companyId);
 
-    const msg = aManager ? "Property Manager":"Tenant";
+
+    const text = getUserLabel(loggedInUser);
 
 
 
     return (
         <>
+            <Container>
+                <div className="p-md-5">
+                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> ({text})</span></h2>
+                    {welcome}
+                    <br/>
 
 
             {aAdmin && <AdministratorDashboard user={loggedInUser}/>}
 
                     {aManager && <ManagerDashboard user={loggedInUser}/>}
 
-                    {aTenant && <BuildingInformation bid={loggedInUser.buildingId}/>}
+            {aTechnician && <TechnicianDashboard user={loggedInUser}/>}
 
+                    {aTenant && <TenantDashboard loggedInUser={loggedInUser}/>}
 
+                    {aDependant && <DependantDashboard user={loggedInUser}/>}
+
+                </div>
+            </Container>
         </>
     );
 }

@@ -27,7 +27,7 @@ function ManagersMaintenanceList(props) {
                         </td>
                         <td>
                             {maintenance.asset}
-                            <br/><span className="text-success">Building name</span>
+                            <br/><span className="text-success">Building Name</span>
                         </td>
                         <td>{maintenance.description}</td>
                         <td>{maintenance.status}</td>

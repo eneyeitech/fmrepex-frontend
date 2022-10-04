@@ -64,3 +64,18 @@ export function getRequestsByTenant() {
         .then(handleResponse)
         .catch(handleError);
 }
+
+export function getRequestsByDependant() {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/dependant/request`;
+    console.log(email, password);
+    return fetch(baseUrl + path, {
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}

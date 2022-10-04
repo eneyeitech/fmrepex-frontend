@@ -79,3 +79,19 @@ export function modifiedUsers(users){
         };
     });
 }
+
+export function unfilteredUsers(users){
+    return users.map(user => {
+        return {
+            email: user.email,
+            name:`${user.fullName}`,
+            approved: user.approved,
+            verified: user.verified,
+            type: isTenant(user) ?"Tenant":isTechnician(user)?"Technician":isDependant(user)?"Dependant":isManager(user)?"Manager":isAdministrator(user)?"Admin":"",
+        };
+    });
+}
+
+export function getUserLabel(user){
+    return isTenant(user) ?"Tenant":isTechnician(user)?"Technician":isDependant(user)?"Dependant":isManager(user)?"Manager":isAdministrator(user)?"Admin":"";
+}

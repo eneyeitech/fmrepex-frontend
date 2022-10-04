@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
-import {getRequestsByManager} from "../../api/query/requetQueryApi";
+import {getRequestsByManager} from "../../api/query/requestQueryApi";
 import ManagersMaintenanceList from "./ManagersMaintenanceList";
 
 function ManagersMaintenancePage(props) {

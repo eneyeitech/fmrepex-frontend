@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
-
-import {Link} from "react-router-dom";
-import {getRequestsByTenant} from "../../api/query/requestQueryApi";
+import {getRequestsByDependant} from "../../api/query/requestQueryApi";
 import MaintenanceList from "./MaintenanceList";
-import * as tenApi from "../../api/command/tenantApi";
+import * as depApi from "../../api/command/dependantApi";
+import {Container} from "reactstrap";
 
-function MaintenanceRequestsPage(props) {
+function DependantMaintenanceRequestsPage(props) {
 
     const [maintenances, setMaintenances] = useState([]);
     const [changed, setChanged] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
-        const _bid = props.bid;
-        if(_bid){
-            getRequestsByTenant(_bid).then(response => {
+
+            getRequestsByDependant().then(response => {
                 console.log(response);
                 setMaintenances(response);
             });
-        }
-    }, [props.bid, changed])
+    }, [changed])
 
     console.log(maintenances);
 
@@ -32,7 +29,7 @@ function MaintenanceRequestsPage(props) {
     }
 
     const signOffRequest = (id) => {
-        tenApi.signOffRequest(id).then(response=>{
+        depApi.signOffRequest(id).then(response=>{
             console.log(response);
             setChanged(!changed);
         }).catch(r=>{
@@ -42,22 +39,15 @@ function MaintenanceRequestsPage(props) {
 
     return (
         <>
+            <Container>
             <div className="p-md-5">
                 <h4 className="pt-md-2">Maintenance Requests</h4>
-
-            <Link className="btn btn-primary" to={{
-                pathname: "/services/request",
-                state: {
-                    buildingId: bid,
-                },
-            }}>
-                Make Maintenance Request
-            </Link>
                 <MaintenanceList maintenances={maintenances} bid={bid} onClick={handleClick}/>
             </div>
+            </Container>
         </>
     );
 }
 
 
-export default MaintenanceRequestsPage;
+export default DependantMaintenanceRequestsPage;

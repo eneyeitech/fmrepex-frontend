@@ -3,7 +3,7 @@ import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import {useLocation} from "react-router-dom";
 import MaintenanceForm from "./MaintenanceForm";
-import {getRequestBySlug} from "../../api/query/requetQueryApi";
+import {getRequestBySlug} from "../../api/query/requestQueryApi";
 import {saveRequest} from "../../api/command/tenantApi";
 
 

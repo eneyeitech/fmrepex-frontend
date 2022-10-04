@@ -3,6 +3,21 @@ import { handleResponse, handleError } from "./../apiUtils";
 const baseUrl = "http://localhost:8080";
 const url = new URL('http://localhost:8080/api/auth/signup');
 
+export function getAllUsers() {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+
+    console.log(email, password);
+    return fetch(baseUrl + "/api/admin/users", {
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
+
 export function getUsersByManager() {
     const email = JSON.parse(localStorage.getItem('USROBJ')).email;
     const password = localStorage.getItem('PSSWD');
@@ -24,6 +39,21 @@ export function getTenantsByBuilding(bid) {
     const path = `/api/tenant/building/${bid}`;
     console.log(bid, email, password);
     return fetch(baseUrl + path, {
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
+
+export function getDependants() {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+
+    console.log(email, password);
+    return fetch(baseUrl + "/api/tenant/dependants", {
         headers: {
             "content-type": "application/json",
             'Authorization': 'Basic ' + btoa(`${email}:${password}`)

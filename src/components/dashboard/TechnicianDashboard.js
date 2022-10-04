@@ -18,26 +18,15 @@ function TechnicianDashboard(props){
     }, [props.user]);
     return (
         <>
-            <Container>
-                <div className="p-md-5">
-                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> (Manager)</span></h2>
-
-                    <br/>
-                    <>
 
                         <Link to={{
-                            pathname: "/buildings",
+                            pathname: "/work-order",
+                            state: {
+                                id:"id",
+                            },
                         }}
-                        >Manage Building</Link>
-                        <br/>
-                        <Link to="/users">Manage Users</Link>
-                        <br/>
-                        <Link to="/maintenance">View Maintenance Request</Link>
-                    </>
+                        >My Work Orders</Link>
 
-
-                </div>
-            </Container>
         </>
     );
 }

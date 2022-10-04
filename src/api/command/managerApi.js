@@ -102,3 +102,26 @@ export function unAssignTenantToBuilding(tenant) {
         .then(handleResponse)
         .catch(handleError);
 }
+
+export function createWorkOrder(workOrder) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/manager/work-order`
+    if(!workOrder.requestId){
+        console.log("Request id not set");
+        return;
+    }
+
+    console.log(workOrder, email, password);
+
+    return fetch(baseUrl + path, {
+        method: "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify(workOrder)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}

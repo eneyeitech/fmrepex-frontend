@@ -19,11 +19,6 @@ function ManagerDashboard(props){
     }, [props.user]);
     return (
         <>
-            <Container>
-                <div className="p-md-5">
-                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> (Manager)</span></h2>
-                    Welcome {user.fullName}
-                    <br/>
                     <>
 
                         <Link to={{
@@ -39,7 +34,7 @@ function ManagerDashboard(props){
                         <Link to="/maintenance">View Maintenance Request</Link>
                         <br/>
                         <Link to={{
-                            pathname: "/work-order",
+                            pathname: "/manager/work-order",
                             state: {
                                 id:"id",
                             },
@@ -50,8 +45,7 @@ function ManagerDashboard(props){
 
 
 
-                </div>
-            </Container>
+
         </>
     );
 }

@@ -28,6 +28,12 @@ import ManagersMaintenancePage from "./components/request/ManagersMaintenancePag
 import MaintenanceRequestDetail from "./components/request/MaintenanceRequestDetail";
 import AboutServiceList from "./components/AboutServiceList";
 import AboutServicePage from "./components/AboutServicePage";
+import TechnicianWorkOrderPage from "./components/workOrder/TechnicianWorkOrderPage";
+import AdminUsersPage from "./components/user/AdminUsersPage";
+import ManagerWorkOrderPage from "./components/workOrder/ManagerWorkOrderPage";
+import TenantUsersPage from "./components/user/TenantUsersPage";
+import ManageDependant from "./components/user/ManageDependant";
+import DependantMaintenanceRequestsPage from "./components/request/DependantMaintenanceRequestsPage";
 
 
 
@@ -74,14 +80,20 @@ function App() {
             <Route path="/building/:slug" component={ManageBuilding} />
             <Route path="/building" component={ManageBuilding} />
             <Route path="/maintenance" component={ManagersMaintenancePage} />
+            <Route path="/work-order" component={TechnicianWorkOrderPage} />
+            <Route path="/manager/work-order" component={ManagerWorkOrderPage} />
             <Route path="/requests" component={MaintenanceRequestsPage} />
+            <Route path="/dependant/requests" component={DependantMaintenanceRequestsPage} />
             <Route path="/request/detail/:slug" component={MaintenanceRequestDetail} />
             <Route path="/request/:slug" component={ManageMaintenanceRequest} />
             <Route path="/request" component={ManageMaintenanceRequest} />
             <Route path="/users" component={UsersPage} />
+            <Route path="/admin/users" component={AdminUsersPage} />
+            <Route path="/tenant/users" component={TenantUsersPage} />
             <Route path="/assign" component={TenantAssignment} />
             <Route path="/unassign" component={TenantUnAssignment} />
             <Route path="/user" component={ManageUserPage} />
+            <Route path="/dependant" component={ManageDependant} />
             <Route path="/company" component={ManageCompany} />
             <Route path="/dashboard"><Dashboard onLogin={handleLogin}/></Route>
           <Redirect from="/about-page" to="about" />

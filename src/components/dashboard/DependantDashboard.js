@@ -19,26 +19,13 @@ function DependantDashboard(props){
 
     return (
         <>
-            <Container>
-                <div className="p-md-5">
-                    <h2 className="mb-md-2">Dashboard <span className="text-muted"> (Manager)</span></h2>
-
-                    <br/>
-                    <>
-
-                        <Link to={{
-                            pathname: "/buildings",
-                        }}
-                        >Manage Building</Link>
-                        <br/>
-                        <Link to="/users">Manage Users</Link>
-                        <br/>
-                        <Link to="/maintenance">View Maintenance Request</Link>
-                    </>
-
-
-                </div>
-            </Container>
+            <Link to={{
+                pathname: "/dependant/requests",
+                state: {
+                    id:"id",
+                },
+            }}
+            >Requests</Link>
         </>
     );
 }

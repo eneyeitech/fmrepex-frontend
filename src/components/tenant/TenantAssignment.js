@@ -14,6 +14,7 @@ function TenantAssignment(props) {
         id: null,
         email: "",
         buildingId:"",
+        label:"",
 
     });
 
