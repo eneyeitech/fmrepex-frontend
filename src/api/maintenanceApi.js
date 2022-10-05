@@ -1,6 +1,9 @@
 import { handleResponse, handleError } from "./apiUtils";
 //const baseUrl = process.env.REACT_APP_API_URL + "/courses/";
-const baseUrl = "http://localhost:8080";
+//const baseUrl = process.env.REACT_APP_DEV_API_URL;
+const baseUrl = process.env.REACT_APP_API_URL;
+//const baseUrl = "http://localhost:8080";
+
 const url = new URL('http://localhost:8080/api/auth/signup');
 
 export function saveMaintenance(maintenance, bid) {
