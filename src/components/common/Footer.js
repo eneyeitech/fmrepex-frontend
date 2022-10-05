@@ -15,33 +15,14 @@ function Footer(props) {
                       </svg>
                       <small className="d-block mb-3 text-muted">© 2016–2022</small>
                   </div>
-                  <div className="col-6 col-md">
-                      <h5></h5>
-                      <ul className="list-unstyled text-small">
-                          <li><Link className="link-secondary" to="/">Home</Link></li>
 
-                      </ul>
-                  </div>
                   <div className="col-6 col-md">
                       <h5></h5>
                       <ul className="list-unstyled text-small">
                           <li><Link className="link-secondary" to="/services">Services</Link></li>
                       </ul>
                   </div>
-                  <div className="col-6 col-md">
-                      <h5></h5>
-                      <ul className="list-unstyled text-small">
-                          <li><Link className="link-secondary" to="/about">About</Link></li>
 
-                      </ul>
-                  </div>
-                  <div className="col-6 col-md">
-                      <h5></h5>
-                      <ul className="list-unstyled text-small">
-                          <li><Link className="link-secondary" to="/contact">Contact</Link></li>
-
-                      </ul>
-                  </div>
               </div>
           </footer>
       </>

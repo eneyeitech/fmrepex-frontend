@@ -38,7 +38,8 @@ function Dashboard(props){
 
     const text = getUserLabel(loggedInUser);
 
-
+console.log(process.env.REACT_APP_API_URL);
+console.log(process.env.REACT_APP_DEV_API_URL);
 
     return (
         <>
