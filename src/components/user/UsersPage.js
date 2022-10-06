@@ -5,17 +5,26 @@ import UserList from "./UserList";
 import {Container} from "reactstrap";
 import {getUsersByManager} from "../../api/query/userQueryApi";
 import {modifiedUsers} from "../../business/usersService";
+import userStore from "../../stores/userStore";
+import {loadTenantsAndTechnicians} from "../../actions/userActions";
 
 function UsersPage() {
 
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(userStore.getUsers());
 
     useEffect( () => {
-        getUsersByManager().then(response => {
+        /**getUsersByManager().then(response => {
             console.log(response);
             setUsers(response);
-        });
-    }, [])
+        });*/
+        userStore.addChangeListener(onChange);
+        if(userStore.getUsers().length === 0) loadTenantsAndTechnicians();
+        return () => userStore.removeChangeListener(onChange); // cleanup on mount
+    }, []);
+
+    function onChange(){
+        setUsers(userStore.getUsers());
+    }
 
     const displayedUsers = users ? modifiedUsers(users) : [];
     console.log(displayedUsers);

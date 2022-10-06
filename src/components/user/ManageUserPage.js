@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as managerApi from "../../api/command/managerApi";
-import SignUpForm from "../authentication/SignUpForm";
+import userStore from "../../stores/userStore";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";
-import {getBuildingBySlug} from "../../api/buildingApi";
 import {getUserBySlug} from "../../api/userApi";
+import * as userActions from "../../actions/userActions"
 
 
 const ManageUserPage = props => {
@@ -27,7 +27,7 @@ const ManageUserPage = props => {
         if (_user) {
             setUser(_user);
         } else if(slug) {
-            getUserBySlug(slug).then(response=>{
+            /**getUserBySlug(slug).then(response=>{
                 console.log(response.name);
                 let id = response.id;
                 let name = response.name;
@@ -35,7 +35,8 @@ const ManageUserPage = props => {
                 let email = response.email;
                 let type = response.type;
                 setUser({...user,id, name, email, type});
-            })
+            })*/
+            setUser(userStore.getUserBySlug(slug));
         }
     }, [props.user, props.match.params.slug]);
 
@@ -64,7 +65,12 @@ const ManageUserPage = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        managerApi.addUser(user).then(() => {
+        /**managerApi.addUser(user).then(() => {
+            props.history.push("/users");
+            toast.success("User saved.");
+        });*/
+
+        userActions.addTenantOrTechnician(user).then(() => {
             props.history.push("/users");
             toast.success("User saved.");
         });
