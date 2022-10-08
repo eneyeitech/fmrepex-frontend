@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
-import * as managerApi from "../../api/command/managerApi";
 import userStore from "../../stores/userStore";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import UserForm from "./UserForm";
-import {getUserBySlug} from "../../api/userApi";
 import * as userActions from "../../actions/userActions"
 
 
 const ManageUserPage = props => {
     const [errors, setErrors] = useState({});
+    const [users, setUsers] = useState(userStore.getUsers);
     const [user, setUser] = useState({
         id: null,
         type:"",
         name: "",
-        //lastname: "",
         email: "",
         phone:"",
         pass: ""
     });
 
     useEffect(() => {
+        userStore.addChangeListener(onChange);
         const _user = props.user;
         const slug = props.match.params.slug // from the path `/user/:slug
         console.log("SLUG", slug);
-        if (_user) {
+        if(users.length ===  0){
+            userActions.loadTenantsAndTechnicians();
+        }else if (_user) {
             setUser(_user);
         } else if(slug) {
             /**getUserBySlug(slug).then(response=>{
@@ -36,9 +37,28 @@ const ManageUserPage = props => {
                 let type = response.type;
                 setUser({...user,id, name, email, type});
             })*/
-            setUser(userStore.getUserBySlug(slug));
+            const foundUser = userStore.getUserBySlug(slug);
+            if(foundUser){
+                let id = foundUser.email;
+                let name = foundUser.fullName;
+                let email = foundUser.email;
+                let phone = foundUser.phoneNumber;
+                let type = "";
+                if(foundUser.userType === "TENANT"){
+                    type = "tenant";
+                }else if(foundUser.userType === "TECHNICIAN"){
+                    type = "technician";
+                }
+                setUser({...user, id, name, email, phone, type});
+            }
+            //setUser(userStore.getUserBySlug(slug));
         }
-    }, [props.user, props.match.params.slug]);
+        return () => userStore.removeChangeListener(onChange);
+    }, [props.user, props.match.params.slug, users.length]);
+
+    function onChange(){
+        setUsers(userStore.getUsers());
+    }
 
     function handleChange({ target }) {
         setUser({

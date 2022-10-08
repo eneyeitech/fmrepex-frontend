@@ -6,7 +6,7 @@ import {Container} from "reactstrap";
 import {getUsersByManager} from "../../api/query/userQueryApi";
 import {modifiedUsers} from "../../business/usersService";
 import userStore from "../../stores/userStore";
-import {loadTenantsAndTechnicians} from "../../actions/userActions";
+import {loadTenantsAndTechnicians, deleteUser} from "../../actions/userActions";
 
 function UsersPage() {
 
@@ -36,7 +36,7 @@ function UsersPage() {
             <Link className="btn btn-primary" to="/user">
                 Add User
             </Link>
-            <UserList users={displayedUsers}/>
+            <UserList users={displayedUsers} deleteUser={deleteUser}/>
                 </div>
             </Container>
         </>

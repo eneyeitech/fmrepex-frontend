@@ -18,13 +18,18 @@ function UserList(props) {
                 return (
                     <tr key={user.email}>
                         <td>
-
+                            <button className="btn btn-outline-danger"
+                                    onClick={() => props.deleteUser(user.email)}
+                            >
+                                Delete
+                            </button>
                         </td>
                         <td>
                             {user.name}
                         </td>
                         <td>{user.email}</td>
                         <td>{user.type}</td>
+                        <td></td>
                     </tr>
                 );
             })}

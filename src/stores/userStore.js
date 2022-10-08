@@ -32,6 +32,10 @@ class  UserStore extends EventEmitter {
 const store = new UserStore();
 AppDispatcher.register(action => {
     switch (action.actionType) {
+        case actionTypes.DELETE_USER:
+            _users = _users.filter(user => user.email !== action.email);
+            store.emitChange();
+            break;
         case actionTypes.CREATE_MANAGER:
             _users.push(action.user);
             store.emitChange()

@@ -92,6 +92,7 @@ function App() {
             <Route path="/tenant/users" component={TenantUsersPage} />
             <Route path="/assign" component={TenantAssignment} />
             <Route path="/unassign" component={TenantUnAssignment} />
+            <Route path="/user/:slug" component={ManageUserPage} />
             <Route path="/user" component={ManageUserPage} />
             <Route path="/dependant" component={ManageDependant} />
             <Route path="/company" component={ManageCompany} />

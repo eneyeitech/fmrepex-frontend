@@ -58,3 +58,18 @@ export function signOffRequest(rid) {
 }
 
 
+export function deleteUser(emailToDelete) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/${emailToDelete}`
+    return fetch(baseUrl + path, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify({})
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
