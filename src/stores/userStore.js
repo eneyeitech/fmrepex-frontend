@@ -13,6 +13,7 @@ class  UserStore extends EventEmitter {
 
     removeChangeListener(callback){
         this.removeListener(CHANGE_EVENT, callback);
+        _users = [];
     }
 
     emitChange(){

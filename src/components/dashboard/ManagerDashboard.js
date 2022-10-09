@@ -41,6 +41,8 @@ function ManagerDashboard(props){
                         }}
                         >Manage Work Orders</Link>
                         <br/>
+                        <Link to="/manager/announcements">Manage Announcements</Link>
+                        <br/>
                     </>
 
 

@@ -34,6 +34,8 @@ import ManagerWorkOrderPage from "./components/workOrder/ManagerWorkOrderPage";
 import TenantUsersPage from "./components/user/TenantUsersPage";
 import ManageDependant from "./components/user/ManageDependant";
 import DependantMaintenanceRequestsPage from "./components/request/DependantMaintenanceRequestsPage";
+import ManagerAnnouncementPage from "./components/announcement/ManagerAnnouncementPage";
+import ManageAnnouncementPage from "./components/announcement/ManageAnnouncementPage";
 
 
 
@@ -87,6 +89,8 @@ function App() {
             <Route path="/request/detail/:slug" component={MaintenanceRequestDetail} />
             <Route path="/request/:slug" component={ManageMaintenanceRequest} />
             <Route path="/request" component={ManageMaintenanceRequest} />
+            <Route path="/manager/announcements" component={ManagerAnnouncementPage} />
+            <Route path="/announcement" component={ManageAnnouncementPage} />
             <Route path="/users" component={UsersPage} />
             <Route path="/admin/users" component={AdminUsersPage} />
             <Route path="/tenant/users" component={TenantUsersPage} />

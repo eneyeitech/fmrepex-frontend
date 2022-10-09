@@ -124,3 +124,35 @@ export function createWorkOrder(workOrder) {
         .then(handleResponse)
         .catch(handleError);
 }
+
+export function sendAnnouncement(announcement) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    console.log(announcement);
+    return fetch(baseUrl + (announcement.id || "/api/manager/new/announcement"), {
+        method: announcement.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify(announcement)
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
+
+export function deleteAnnouncement(id) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/announcement/${id}`
+    return fetch(baseUrl + path, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify({})
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}
