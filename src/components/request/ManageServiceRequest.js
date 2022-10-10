@@ -7,6 +7,7 @@ import * as requestAction from "../../actions/requestActions";
 
 
 const ManageServiceRequest = props => {
+
     const [errors, setErrors] = useState({});
     const [requests, setRequests] = useState(requestStore.getRequests)
     const [maintenance, setMaintenance] = useState({
@@ -24,7 +25,9 @@ const ManageServiceRequest = props => {
         const _maintenance = props.maintenance;
         const {service} = props;
         if(requests.length ===  0){
-            requestAction.loadRequestsByTenant();
+            requestAction.loadRequestsByTenant().then(()=>{
+
+            });
         }else if  (_maintenance) {
             setMaintenance(_maintenance);
         }  else if(service) {

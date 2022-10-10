@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
-import {getWorkOrdersByTechnician} from "../../api/query/workOrderQueryApi";
-import * as techApi from "../../api/command/technicianCommandApi";
 import TechnicianWorkOrderList from "./TechnicianWorkOrderList";
 import workOrdersStore from "../../stores/workOrdersStore";
 import {
     loadWorkOrdersByTechnician,
     acceptWorkOrder,
     completeWorkOrder,
-    loadWorkOrdersByManager
 } from "../../actions/workOrderActions";
-import userStore from "../../stores/userStore";
-import * as userActions from "../../actions/userActions";
-import {toast} from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function TechnicianWorkOrderPage(props) {
 
     const [workOrders, setWorkOrders] = useState(workOrdersStore.getWorkOrders);
     const [changed, setChanged] = useState(false);
+    const [loading, setLoading] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
         workOrdersStore.addChangeListener(onChange);
-        if(workOrdersStore.getWorkOrders().length === 0) loadWorkOrdersByTechnician();
+        if(workOrdersStore.getWorkOrders().length === 0) {
+            setLoading(true);
+            loadWorkOrdersByTechnician().then(()=>{
+                setLoading(false);
+            });
+        }
         return () => workOrdersStore.removeChangeListener(onChange); // cleanup on mount
     }, []);
 
@@ -47,7 +48,10 @@ function TechnicianWorkOrderPage(props) {
         }).catch(r=>{
             console.log("Error", r)
         });*/
-        acceptWorkOrder(id);
+        setLoading(true);
+        acceptWorkOrder(id).then(()=>{
+            setLoading(false);
+        });
     }
 
     const complete = (id) => {
@@ -58,18 +62,35 @@ function TechnicianWorkOrderPage(props) {
             console.log("Error", r)
         });*/
 
-        completeWorkOrder(id);
+        setLoading(true);
+        completeWorkOrder(id).then(()=>{
+            setLoading(false);
+        });
     }
 
     console.log(workOrders);
     return (
         <>
             <Container>
-                <div className="p-md-5">
-            <h4 className="pt-md-5">Maintenance Work Orders</h4>
+                {loading ?
+                    <ClipLoader
+                        loading={loading}
+                        cssOverride={{
+                            display: "block",
+                            margin: "0 auto",
+                            borderColor: "blue",
+                        }}
+                        size={150}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                    :
+                    <div className="p-md-5">
+                        <h4 className="pt-md-5">Maintenance Work Orders</h4>
 
-            <TechnicianWorkOrderList workOrders={workOrders} onClick={handleClick}/>
-                </div>
+                        <TechnicianWorkOrderList workOrders={workOrders} onClick={handleClick}/>
+                    </div>
+                }
             </Container>
 
         </>

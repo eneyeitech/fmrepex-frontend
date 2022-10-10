@@ -3,20 +3,27 @@ import MaintenanceList from "./MaintenanceList";
 import {Container} from "reactstrap";
 import requestStore from "../../stores/requestStore";
 import {dependantSignOffRequest, loadRequestsByDependant} from "../../actions/requestActions";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 function DependantMaintenanceRequestsPage(props) {
 
     const [maintenances, setMaintenances] = useState(requestStore.getRequests);
     const [changed, setChanged] = useState(false);
+    const [loading, setLoading] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
 
         requestStore.addChangeListener(onChange);
-        if(requestStore.getRequests().length === 0) loadRequestsByDependant();
+        if(requestStore.getRequests().length === 0) {
+            setLoading(true);
+            loadRequestsByDependant().then(()=>{
+                setLoading(false);
+            });
+        }
         return () => requestStore.removeChangeListener(onChange); // cleanup on mount
-    }, [changed])
+    }, [])
 
     function onChange(){
         setMaintenances(requestStore.getRequests());
@@ -38,16 +45,33 @@ function DependantMaintenanceRequestsPage(props) {
         }).catch(r=>{
             console.log("Error", r)
         });*/
-        dependantSignOffRequest(id);
+        setLoading(true);
+        dependantSignOffRequest(id).then(()=>{
+            setLoading(false);
+        });
     }
 
     return (
         <>
             <Container>
-            <div className="p-md-5">
-                <h4 className="pt-md-2">Maintenance Requests</h4>
-                <MaintenanceList maintenances={maintenances} bid={bid} onClick={handleClick}/>
-            </div>
+                {loading ?
+                    <ClipLoader
+                        loading={loading}
+                        cssOverride={{
+                            display: "block",
+                            margin: "0 auto",
+                            borderColor: "blue",
+                        }}
+                        size={150}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                    :
+                    <div className="p-md-5">
+                        <h4 className="pt-md-2">Maintenance Requests</h4>
+                        <MaintenanceList maintenances={maintenances} bid={bid} onClick={handleClick}/>
+                    </div>
+                }
             </Container>
         </>
     );

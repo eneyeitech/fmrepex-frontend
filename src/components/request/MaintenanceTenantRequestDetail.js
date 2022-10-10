@@ -7,7 +7,7 @@ import {getUserBySlug} from "../../api/query/userQueryApi";
 import TextInput from "../common/TextInput";
 
 
-const MaintenanceRequestDetail = props => {
+const MaintenanceTenantRequestDetail = props => {
     const [errors, setErrors] = useState({});
     const [building, setBuilding] = useState({
         id:null,
@@ -110,4 +110,4 @@ const MaintenanceRequestDetail = props => {
     );
 };
 
-export default MaintenanceRequestDetail;
+export default MaintenanceTenantRequestDetail;
