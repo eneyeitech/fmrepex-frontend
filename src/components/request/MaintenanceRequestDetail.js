@@ -4,10 +4,10 @@ import {useLocation} from "react-router-dom";
 import {getRequestBySlug} from "../../api/query/requestQueryApi";
 import {getBuildingBySlug} from "../../api/query/buildingQueryApi";
 import {getUserBySlug} from "../../api/query/userQueryApi";
-import {createWorkOrder} from "../../api/command/managerApi";
 import {toast} from "react-toastify";
 import WorkOrderForm from "./WorkOrderForm";
-
+import * as workOrderActions from "../../actions/workOrderActions";
+import workOrdersStore from "../../stores/workOrdersStore";
 
 const MaintenanceRequestDetail = props => {
     const [errors, setErrors] = useState({});
@@ -39,11 +39,14 @@ const MaintenanceRequestDetail = props => {
         requestId:null,
     });
 
+    const  [workOrders, setWorkOrders] = useState(workOrdersStore.getWorkOrders);
+
     const location = useLocation();
     const { buildingId } = location.state;
     console.log(buildingId);
 
     useEffect(() => {
+        workOrdersStore.addChangeListener(onChange);
         const _maintenance = props.maintenance;
         const slug = props.match.params.slug // from the path `/building/:slug
         console.log("SLUG", slug);
@@ -67,11 +70,18 @@ const MaintenanceRequestDetail = props => {
                 setTenant(response);
             })
         }
-        if(maintenance.id){
+        if(workOrders.length ===  0) {
+            workOrderActions.loadWorkOrdersByManager();
+        }
+        if (maintenance.id){
             setWorkOrder({...workOrder, requestId:maintenance.id});
         }
-    }, [props.maintenance, props.match.params.slug, maintenance.buildingId, maintenance.tenantEmail, maintenance.id]);
+        return () => workOrdersStore.removeChangeListener(onChange);
+    }, [props.maintenance, props.match.params.slug, maintenance.buildingId, maintenance.tenantEmail, maintenance.id, workOrders.length]);
 
+    function onChange(){
+        setWorkOrders(workOrdersStore.getWorkOrders());
+    }
 
     function handleChange({ target }) {
         setWorkOrder({
@@ -94,9 +104,7 @@ const MaintenanceRequestDetail = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        createWorkOrder(workOrder).then(response => {
-            console.log(response);
-
+        workOrderActions.addWorkOrder(workOrder).then(() => {
             props.history.push(`/maintenance`);
             toast.success("Work Order created.");
         });

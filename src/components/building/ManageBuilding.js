@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import * as companyApi from "../../api/companyApi";
-import * as managerApi from "../../api/command/managerApi"
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
-import CompanyForm from "../CompanyForm";
 import {useLocation} from "react-router-dom";
 import BuildingForm from "./BuildingForm";
-import {getBuildingBySlug} from "../../api/query/buildingQueryApi";
 import TenantInformation from "../tenant/TenantInformation";
+import buildingStore from "../../stores/buildingStore";
+import * as buildingActions from "../../actions/buildingActions";
 
 
 const ManageBuilding = props => {
     const [errors, setErrors] = useState({});
+    const [buildings, setBuildings] = useState(buildingStore.getBuildings);
     const [building, setBuilding] = useState({
         id: null,
         name: "",
@@ -28,18 +27,26 @@ const ManageBuilding = props => {
 
 
     useEffect(() => {
+        buildingStore.addChangeListener(onChange);
         const _building = props.building;
         const slug = props.match.params.slug // from the path `/building/:slug
         console.log("SLUG", slug);
-        if (_building) {
+
+        if(buildings.length ===  0){
+            buildingActions.loadBuildings();
+        }else if (_building) {
             setBuilding(_building);
         } else if(slug) {
-            getBuildingBySlug(slug).then(response=>{
-                console.log(response);
-                setBuilding(response);
-            })
+            const foundBuilding = buildingStore.getBuildingBySlug(slug);
+            console.log("found", foundBuilding);
+            setBuilding(foundBuilding);
         }
-    }, [props.building, props.match.params.slug]);
+        return () => buildingStore.removeChangeListener(onChange);
+    }, [props.building, props.match.params.slug, buildings.length]);
+
+    function onChange(){
+        setBuildings(buildingStore.getBuildings());
+    }
 
     function handleChange({ target }) {
         setBuilding({
@@ -68,9 +75,7 @@ const ManageBuilding = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        managerApi.saveBuilding(building).then(response => {
-            console.log(response);
-
+        buildingActions.addBuilding(building).then(() => {
             props.history.push("/buildings");
             toast.success("Building saved.");
         });

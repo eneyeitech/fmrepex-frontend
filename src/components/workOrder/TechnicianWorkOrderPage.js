@@ -3,49 +3,62 @@ import {Container} from "reactstrap";
 import {getWorkOrdersByTechnician} from "../../api/query/workOrderQueryApi";
 import * as techApi from "../../api/command/technicianCommandApi";
 import TechnicianWorkOrderList from "./TechnicianWorkOrderList";
+import workOrdersStore from "../../stores/workOrdersStore";
+import {
+    loadWorkOrdersByTechnician,
+    acceptWorkOrder,
+    completeWorkOrder,
+    loadWorkOrdersByManager
+} from "../../actions/workOrderActions";
+import userStore from "../../stores/userStore";
+import * as userActions from "../../actions/userActions";
+import {toast} from "react-toastify";
 
 function TechnicianWorkOrderPage(props) {
 
-    const [workOrders, setWorkOrders] = useState([]);
+    const [workOrders, setWorkOrders] = useState(workOrdersStore.getWorkOrders);
     const [changed, setChanged] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
+        workOrdersStore.addChangeListener(onChange);
+        if(workOrdersStore.getWorkOrders().length === 0) loadWorkOrdersByTechnician();
+        return () => workOrdersStore.removeChangeListener(onChange); // cleanup on mount
+    }, []);
 
-            getWorkOrdersByTechnician().then(response => {
-                console.log(response);
-                setWorkOrders(response);
-            });
-
-    }, [changed]);
-
+    function onChange(){
+        setWorkOrders(workOrdersStore.getWorkOrders());
+    }
     const handleClick = (w) => {
         //console.log("1-Mango Apple", e);
         if(w.status === "PENDING"){
             console.log("Approve");
-            acceptWorkOrder(w.id);
+            accept(w.id);
         } else if(w.status === "ACTIVE"){
             console.log("Complete")
-            completeWorkOrder(w.id);
+            complete(w.id);
         }
     }
 
-    const acceptWorkOrder = (id) => {
-        techApi.acceptWorkOrder(id).then(response=>{
+    const accept = (id) => {
+        /**techApi.acceptWorkOrder(id).then(response=>{
             console.log(response);
             setChanged(!changed)
         }).catch(r=>{
             console.log("Error", r)
-        });
+        });*/
+        acceptWorkOrder(id);
     }
 
-    const completeWorkOrder = (id) => {
-        techApi.completeWorkOrder(id).then(response=>{
+    const complete = (id) => {
+        /**techApi.completeWorkOrder(id).then(response=>{
             console.log(response);
             setChanged(!changed)
         }).catch(r=>{
             console.log("Error", r)
-        });
+        });*/
+
+        completeWorkOrder(id);
     }
 
     console.log(workOrders);

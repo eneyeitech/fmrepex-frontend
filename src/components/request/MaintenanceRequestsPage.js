@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 
 import {Link} from "react-router-dom";
-import {getRequestsByTenant} from "../../api/query/requestQueryApi";
 import MaintenanceList from "./MaintenanceList";
-import * as tenApi from "../../api/command/tenantApi";
+import requestStore from "../../stores/requestStore";
+import {loadRequestsByTenant, tenantSignOffRequest} from "../../actions/requestActions";
+
 
 function MaintenanceRequestsPage(props) {
 
-    const [maintenances, setMaintenances] = useState([]);
+    const [maintenances, setMaintenances] = useState(requestStore.getRequests);
     const [changed, setChanged] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
         const _bid = props.bid;
         if(_bid){
-            getRequestsByTenant(_bid).then(response => {
-                console.log(response);
-                setMaintenances(response);
-            });
+            requestStore.addChangeListener(onChange);
+            if(requestStore.getRequests().length === 0) loadRequestsByTenant();
+            return () => requestStore.removeChangeListener(onChange); // cleanup on mount
         }
     }, [props.bid, changed])
+
+
+
+
+function onChange(){
+    setMaintenances(requestStore.getRequests());
+}
 
     console.log(maintenances);
 
@@ -27,17 +34,12 @@ function MaintenanceRequestsPage(props) {
         //console.log("1-Mango Apple", e);
         if(w.status === "COMPLETED"){
             console.log("Sign-Off");
-            signOffRequest(w.id);
+            signOff(w.id);
         }
     }
 
-    const signOffRequest = (id) => {
-        tenApi.signOffRequest(id).then(response=>{
-            console.log(response);
-            setChanged(!changed);
-        }).catch(r=>{
-            console.log("Error", r)
-        });
+    const signOff = (id) => {
+        tenantSignOffRequest(id);
     }
 
     return (

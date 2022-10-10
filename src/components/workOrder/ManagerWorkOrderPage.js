@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
-import {getWorkOrdersByManager} from "../../api/query/workOrderQueryApi";
-import TechnicianWorkOrderList from "./TechnicianWorkOrderList";
 import ManagerWorkOrderList from "./ManagerWorkOrderList";
-
+import workOrdersStore from "../../stores/workOrdersStore";
+import userStore from "../../stores/userStore";
+import {loadWorkOrdersByManager} from "../../actions/workOrderActions";
 function ManagerWorkOrderPage(props) {
 
-    const [workOrders, setWorkOrders] = useState([]);
+    const [workOrders, setWorkOrders] = useState(workOrdersStore.getWorkOrders);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
-
-        getWorkOrdersByManager().then(response => {
-                console.log(response);
-                setWorkOrders(response);
-            });
-
+        workOrdersStore.addChangeListener(onChange);
+        if(workOrdersStore.getWorkOrders().length === 0) loadWorkOrdersByManager();
+        return () => workOrdersStore.removeChangeListener(onChange); // cleanup on mount
     }, []);
+
+    function onChange(){
+        setWorkOrders(workOrdersStore.getWorkOrders());
+    }
 
     console.log(workOrders);
     return (

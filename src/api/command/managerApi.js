@@ -156,3 +156,19 @@ export function deleteAnnouncement(id) {
         .then(handleResponse)
         .catch(handleError);
 }
+
+export function deleteBuilding(id) {
+    const email = JSON.parse(localStorage.getItem('USROBJ')).email;
+    const password = localStorage.getItem('PSSWD');
+    const path = `/api/building/${id}`
+    return fetch(baseUrl + path, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json",
+            'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+        },
+        body: JSON.stringify({})
+    })
+        .then(handleResponse)
+        .catch(handleError);
+}

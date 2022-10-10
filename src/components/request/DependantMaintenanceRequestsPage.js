@@ -1,40 +1,44 @@
 import React, { useState, useEffect } from "react";
-import {getRequestsByDependant} from "../../api/query/requestQueryApi";
 import MaintenanceList from "./MaintenanceList";
-import * as depApi from "../../api/command/dependantApi";
 import {Container} from "reactstrap";
+import requestStore from "../../stores/requestStore";
+import {dependantSignOffRequest, loadRequestsByDependant} from "../../actions/requestActions";
+
 
 function DependantMaintenanceRequestsPage(props) {
 
-    const [maintenances, setMaintenances] = useState([]);
+    const [maintenances, setMaintenances] = useState(requestStore.getRequests);
     const [changed, setChanged] = useState(false);
     const {bid} = props;
     console.log(bid);
     useEffect( () => {
 
-            getRequestsByDependant().then(response => {
-                console.log(response);
-                setMaintenances(response);
-            });
+        requestStore.addChangeListener(onChange);
+        if(requestStore.getRequests().length === 0) loadRequestsByDependant();
+        return () => requestStore.removeChangeListener(onChange); // cleanup on mount
     }, [changed])
 
+    function onChange(){
+        setMaintenances(requestStore.getRequests());
+    }
     console.log(maintenances);
 
     const handleClick = (w) => {
         //console.log("1-Mango Apple", e);
         if(w.status === "COMPLETED"){
             console.log("Sign-Off");
-            signOffRequest(w.id);
+            signOff(w.id);
         }
     }
 
-    const signOffRequest = (id) => {
-        depApi.signOffRequest(id).then(response=>{
+    const signOff = (id) => {
+        /**depApi.signOffRequest(id).then(response=>{
             console.log(response);
             setChanged(!changed);
         }).catch(r=>{
             console.log("Error", r)
-        });
+        });*/
+        dependantSignOffRequest(id);
     }
 
     return (

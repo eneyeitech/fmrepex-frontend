@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import {Container} from "reactstrap";
 import { toast } from "react-toastify";
 import MaintenanceForm from "./MaintenanceForm";
-import {getRequestBySlug} from "../../api/query/requestQueryApi";
-import {saveRequest} from "../../api/command/tenantApi";
+import requestStore from "../../stores/requestStore";
+import * as requestAction from "../../actions/requestActions";
 
 
 const ManageServiceRequest = props => {
     const [errors, setErrors] = useState({});
+    const [requests, setRequests] = useState(requestStore.getRequests)
     const [maintenance, setMaintenance] = useState({
         id: null,
         asset: "",
@@ -19,14 +20,22 @@ const ManageServiceRequest = props => {
     console.log(buildingId);
 
     useEffect(() => {
+        requestStore.addChangeListener(onChange)
         const _maintenance = props.maintenance;
         const {service} = props;
-        if (_maintenance) {
+        if(requests.length ===  0){
+            requestAction.loadRequestsByTenant();
+        }else if  (_maintenance) {
             setMaintenance(_maintenance);
         }  else if(service) {
             setMaintenance({...maintenance, asset:service});
         }
-    }, [props.maintenance, props.service]);
+        return () => requestStore.removeChangeListener(onChange);
+    }, [props.maintenance, props.service, requests.length]);
+
+    function onChange(){
+        setRequests(requestStore.getRequests());
+    }
 
     function handleChange({ target }) {
         setMaintenance({
@@ -50,10 +59,8 @@ const ManageServiceRequest = props => {
     function handleSubmit(event) {
         event.preventDefault();
         if (!formIsValid()) return;
-        saveRequest(maintenance).then(response => {
-            console.log(response);
-            //props.history.push("/dashboard");
-            toast.success("Maintenance Request sent.");
+        requestAction.addRequest(maintenance).then(() => {
+          toast.success("Maintenance Request sent.");
         });
     }
 
